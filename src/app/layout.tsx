@@ -1,5 +1,7 @@
 import './css/reset.css'
 import './css/globals.css'
+import './css/layout.css'
+import './css/typography.css'
 
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
