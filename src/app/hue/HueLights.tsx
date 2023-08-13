@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { useInterval} from '../hooks/useInterval'
+import HueLight from "./HueLight";
 
 export default function HueLights() {
 
    const [lights, setLights] = useState([])
    /* interval at which to make poll request to the API in milliseconds
    Do not go below 100 as this may overload the Hue Bridge */
-   const pollingInterval = 100;
+   const pollingInterval = 200;
 
    function normalizeLightData(data) {
       let myLights = [];
@@ -37,13 +38,11 @@ export default function HueLights() {
    <>
    <h2>Hue lights</h2>
    {lights ?
-      <ul>
+      <div>
       {lights.map(light =>(
-      <li key={light?.uniqueid}>
-         {light?.name} : {light?.productname} ({light?.state?.on? light?.state?.bri : "off"})
-      </li>
+         <HueLight light={light} key={light?.uniqueid} />
       ))}
-      </ul>: <p>No lights found</p>}
+      </div>: <p>No lights found</p>}
    </>
   )
 }
