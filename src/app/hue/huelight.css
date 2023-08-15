@@ -3,3 +3,13 @@
    border:1px solid #ccc;
    padding:1rem;
 }
+
+.hue-light__spot {
+   width: 60px;
+   height:60px;
+   border-radius: 50%;
+   margin:3rem;
+   background-color: currentColor;
+   box-shadow: 0 0 40px 16px currentColor;
+   transition: background-color 0.5s ease;
+}
