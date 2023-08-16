@@ -9,18 +9,18 @@ export default function HueLights() {
    const [lights, setLights] = useState([])
    /* interval at which to make poll request to the API in milliseconds
    Do not go below 100 as this may overload the Hue Bridge */
-   const pollingInterval = 1000;
+   const pollingInterval = 100;
 
    function normalizeLightData(data) {
       let myLights = [];
-      Object.entries(data).forEach((light) => 
+      Object.entries(data).forEach((light) => {
          myLights.push(light[1])
+      }
       )
       return myLights;
    }
 
    useInterval(() => {
-
       const fetchLightData = async () => {
          // get light data from local Hue Bridge
          const result = await fetch('http://' + process.env.NEXT_PUBLIC_HUE_IP + '/api/' + process.env.NEXT_PUBLIC_HUE_USERNAME + '/lights');
