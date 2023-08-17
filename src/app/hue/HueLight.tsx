@@ -1,10 +1,26 @@
 "use client";
 
-import { memo } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import './huelight.css'
 import { cie2RGB,mired2Kelvin, kelvin2RGB } from '../utils/color';
 
 const HueLight = memo(function HueLight(props: any) {
+
+   /* 
+   this component renders a visualization of a single light
+   based on its state
+   */
+
+   /* 
+   track whether this is a first render or a subsequent re-render
+   this is used to not render a CSS animation on the initial render,
+   whilst running it on any subsequent render
+   */
+   const isRerender = useRef(false);
+
+   useEffect(() => {
+      isRerender.current = true;
+    }, []);
 
    // used to calculate on-screen RGB value of light
    let lampColor; 
@@ -12,9 +28,6 @@ const HueLight = memo(function HueLight(props: any) {
    /* the 'ct' (color temperature) value of the light is expressed as 
    'mired', the below converts it into the Kelvin scale */
    let lampKelvin = mired2Kelvin(props?.light?.state?.ct);
-
-   console.log('render')
-
    
    if (!props?.light?.state?.on || !props?.light?.state?.reachable) {
 
@@ -44,7 +57,11 @@ const HueLight = memo(function HueLight(props: any) {
    }
 
   return (
-   <div className="hue-light" style={{opacity: !props?.light?.state?.reachable? "0.3" : "1"}}>
+   /* 
+   note: the random 'key' on this div ensures that React sees it as a new div each time this component re-renders
+   this ensures that the 'highlight' animation is freshly started each time.
+   */
+   <div className={'hue-light' + (isRerender.current? ' hue-light--highlight':'')} key={Math.random()} style={{opacity: !props?.light?.state?.reachable? "0.3" : "1"}}>
       Name: {props?.light?.name}<br/>
       State: {props?.light?.state?.on? "on" : "off"}<br/>
       Reachable: {props?.light?.state?.reachable? "true" : "false"}<br/>

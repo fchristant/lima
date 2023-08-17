@@ -1,7 +1,9 @@
 .hue-light {
    display:inline-block;
-   border:1px solid #ccc;
+   border:3px solid #ccc;
    padding:1rem;
+   margin: 0.3rem;
+   border-radius: 10px;
 }
 
 .hue-light__spot {
@@ -13,3 +15,16 @@
    box-shadow: 0 0 40px 16px currentColor;
    transition: all 0.5s linear;
 }
+
+.hue-light--highlight {
+   animation: highlight 500ms ease-out;
+}
+
+@keyframes highlight {
+   0% {
+     border-color: #ccc;;
+   }
+   100% {
+     border-color: greenyellow;
+   }
+ }

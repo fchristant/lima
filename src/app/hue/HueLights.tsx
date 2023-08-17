@@ -29,10 +29,8 @@ export default function HueLights() {
          const result = await fetch('http://' + process.env.NEXT_PUBLIC_HUE_IP + '/api/' + process.env.NEXT_PUBLIC_HUE_USERNAME + '/lights');
          // convert network result to JSON
          const data = await result.json()
-         // normalize data for rendering
-         const normalized = normalizeLightData(data)
-         // save result in state
-         setLights(normalized);
+         // normalize data and save result in state
+         setLights(normalizeLightData(data));
       };
       fetchLightData();
     }, pollingInterval);
