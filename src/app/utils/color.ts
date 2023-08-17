@@ -1,9 +1,16 @@
-function cie2RGB(px, py, bri) {
+function cie2RGB(px: number, py: number, bri: number) {
    
+   /* 
+   converts a XY color in the CIE color space to RGB.
+   method is based on logic from the Hue API documentation, 
+   converted to JavaScript.
+   https://developers.meethue.com/develop/application-design-guidance/color-conversion-formulas-rgb-to-xy-and-back/ 
+   */
+
    let x = px;
    let y = py;
    let z = 1.0 - x - y;  
-   let Y = bri / 255.0; // Brightness of lamp
+   let Y = bri / 255.0;
    let X = (Y / y) * x;
    let Z = (Y / y) * z;
 
@@ -28,17 +35,18 @@ function cie2RGB(px, py, bri) {
 
 }
 
-function rgbToHex(r, g, b) {
-   if ((r < 0 || r > 255) || (g < 0 || g > 255) || (b < 0 || b > 255))
-     throw new Error('Invalid color component');
-   return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+ function mired2Kelvin(mired: number) {
+   // convert a 'mired' color temperature value into Kelvin
+   return Math.round((1000000 / mired));
  }
 
- function kelvinToRGB (temp, out) {
-   if (!Array.isArray(out)) {
-     out = [0, 0, 0]
-   }
- 
+ function kelvin2RGB (temp: number) {
+   
+   /* 
+   converts a kelvin color temperature value into RGB
+   source: https://github.com/mattdesl/kelvin-to-rgb
+   */
+
    temp = temp / 100
    var red, blue, green
  
@@ -92,10 +100,7 @@ function rgbToHex(r, g, b) {
      }
    }
  
-   out[0] = Math.floor(red)
-   out[1] = Math.floor(green)
-   out[2] = Math.floor(blue)
-   return out
+   return [Math.floor(red), Math.floor(green), Math.floor(blue)]
  }
 
-export {cie2RGB, rgbToHex, kelvinToRGB};
+export {cie2RGB, mired2Kelvin, kelvin2RGB};

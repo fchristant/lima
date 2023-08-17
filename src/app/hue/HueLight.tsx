@@ -1,36 +1,46 @@
 "use client";
 
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import './huelight.css'
-import { cie2RGB, rgbToHex, kelvinToRGB } from '../utils/color';
+import { cie2RGB,mired2Kelvin, kelvin2RGB } from '../utils/color';
 
-//export default function HueLight(props) {
-const HueLight = memo(function HueLight(props) {
+const HueLight = memo(function HueLight(props: any) {
 
-   let lampColor;
-   let lampKelvin = Math.round((1000000 / props?.light?.state?.ct));
+   // used to calculate on-screen RGB value of light
+   let lampColor; 
+
+   /* the 'ct' (color temperature) value of the light is expressed as 
+   'mired', the below converts it into the Kelvin scale */
+   let lampKelvin = mired2Kelvin(props?.light?.state?.ct);
 
    console.log('render')
 
-   // if light is off or not reachable, render as gray/dull
+   
    if (!props?.light?.state?.on || !props?.light?.state?.reachable) {
-      lampColor = '#333';
+
+      // if light is off or not reachable, render as gray/dull
+      lampColor = 'rgba(51,51,51,1.00)';
+
    } else if (props?.light?.state?.colormode === 'ct' && !props?.light?.state?.xy) {
-      // when light is in color temperature (ct) color mode and has no xy output, assume it's a non-color bulb
       
-      // convert 'mired' to kelvin, kelvin to rgb
-      let kRGB = kelvinToRGB(lampKelvin);
-      //lampColor = rgbToHex(kRGB[0], kRGB[1], kRGB[2]);
-
+      /* when light is in color temperature (ct) color mode and has no xy output, assume it's a non-color bulb.
+      this means we only have a color temperature value to work with */
+      
+      // convert kelvin to rgb
+      let kRGB = kelvin2RGB(lampKelvin);
+      /* kelvin to rgb does not take into account the lights' brightness, hence we use the rgb 'alpha'
+      channel to mimick it */
       let brightness = props?.light?.state?.bri / 255;
-      lampColor = 'rgba(' + kRGB[0] + ', ' + kRGB[1] + ', ' +  kRGB[2] + ',' + brightness + ')';
-
-      // apply brightness
+      lampColor = 'rgba(' + kRGB[0] + ', ' + kRGB[1] + ', ' +  kRGB[2] + ',' + brightness.toFixed(2) + ')';
 
    } else if (props.light.state.xy && props.light.state.bri) {
-      // color bulb
+      
+      // assume that this is a color bulb
+
+      // convert xy color coordinate of the CIE color system to RGB
       let lampColorRGB = cie2RGB(props.light.state.xy[0],props.light.state.xy[1],props.light.state.bri);
-      lampColor = rgbToHex(lampColorRGB.r, lampColorRGB.g, lampColorRGB.b);
+      lampColor = 'rgba(' + lampColorRGB.r + ', ' + lampColorRGB.g + ', ' +  lampColorRGB.b + ',1.00)';
+
    }
 
   return (
@@ -41,15 +51,23 @@ const HueLight = memo(function HueLight(props) {
       Brightness: {props?.light?.state?.bri}<br/>
       Hue: {props?.light?.state?.hue}<br/>
       Saturation: {props?.light?.state?.sat}<br/>
-      Color temperature: {props?.light?.state?.ct} ({lampKelvin})<br/>
+      CT Mired: {props?.light?.state?.ct}<br/>
+      CT Kelvin: {lampKelvin}<br/>
       XY: {props?.light?.state?.xy}<br/>
-      HEX: {lampColor}
+      Color: {lampColor}
       <div className="hue-light__spot" style={{color: lampColor}}></div>
    </div>
   )
-}, areEqual);
+}, didLightStateChange);
 
-function areEqual(prevProps, nextProps) {
+function didLightStateChange(prevProps: any, nextProps: any) {
+   /* this component is a React Memo component, which means that if the parents' state changes 
+   we want this child component to only re-render when the actual light's state has changed.
+   Since React only does a shallow comparison to detect if props have changed, this will 
+   not work out of the box. The below custom comparison method fixes this. As a result,
+   no matter how often the upstream parent component polls the Hue Bridge API, any individual
+   HueLight child component will only re-render when any of its properties changes.
+   */
    return JSON.stringify(prevProps) === JSON.stringify(nextProps);
 }
 
