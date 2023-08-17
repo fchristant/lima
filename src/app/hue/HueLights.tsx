@@ -10,6 +10,9 @@ export default function HueLights() {
    and then renders 'light' child components to visualize them */
 
    const [lights, setLights] = useState(null)
+   const [isLoading, setIsLoading] = useState(true);
+   const [err, setErr] = useState('');
+
    /* interval at which to make poll request to the API in milliseconds
    Do not go below 100 as this may overload the Hue Bridge */
    const pollingInterval = 1000;
@@ -25,19 +28,28 @@ export default function HueLights() {
 
    useInterval(() => {
       const fetchLightData = async () => {
+         try {
          // get light data from local Hue Bridge
          const result = await fetch('http://' + process.env.NEXT_PUBLIC_HUE_IP + '/api/' + process.env.NEXT_PUBLIC_HUE_USERNAME + '/lights');
          // convert network result to JSON
          const data = await result.json()
          // normalize data and save result in state
          setLights(normalizeLightData(data));
+         setErr('')
+         } 
+         catch(error) {
+            setErr("Error loading data from Hue Bridge, please check the console for issues.");
+            setIsLoading(false)
+         }
       };
-      fetchLightData();
+      fetchLightData()
     }, pollingInterval);
 
   return (
    <>
-   {lights ? <div>{lights.map(light =>( <HueLight light={light} key={light?.uniqueid} />))}</div>: <p>Loading...</p>}
+   { err? err : ""}
+   { isLoading? <p>loadingggg......</p> : ""}
+   {lights ? <div>{lights.map(light =>( <HueLight light={light} key={light?.uniqueid} />))}</div> : ""}
    </>
   )
 }
