@@ -3,8 +3,9 @@
 import { memo, useEffect, useRef } from 'react';
 import './huelight.css'
 import { cie2RGB,mired2Kelvin, kelvin2RGB } from '../utils/color';
+import { Bulb } from '../types/types';
 
-const HueLight = memo(function HueLight(props: any) {
+const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
 
    /* 
    this component renders a visualization of a single light
@@ -17,10 +18,7 @@ const HueLight = memo(function HueLight(props: any) {
    whilst running it on any subsequent render
    */
    const isRerender = useRef(false);
-
-   useEffect(() => {
-      isRerender.current = true;
-    }, []);
+   useEffect(() => { isRerender.current = true; }, []);
 
    // used to calculate on-screen RGB value of light
    let lampColor; 
@@ -63,6 +61,7 @@ const HueLight = memo(function HueLight(props: any) {
    */
    <div className={'hue-light' + (isRerender.current? ' hue-light--highlight':'')} key={Math.random()} style={{opacity: !props?.light?.state?.reachable? "0.3" : "1"}}>
       Name: {props?.light?.name}<br/>
+      Number: {props?.light?.num}<br/>
       State: {props?.light?.state?.on? "on" : "off"}<br/>
       Reachable: {props?.light?.state?.reachable? "true" : "false"}<br/>
       Brightness: {props?.light?.state?.bri}<br/>

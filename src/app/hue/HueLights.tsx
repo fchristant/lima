@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useInterval} from '../hooks/useInterval'
+import { Bulb } from "../types/types";
 import HueLight from "./HueLight";
 
 export default function HueLights() {
@@ -9,7 +10,7 @@ export default function HueLights() {
    /* this component polls the Hue Bridge V1 API for 'lights' information
    and then renders 'light' child components to visualize them */
 
-   const [lights, setLights] = useState(null)
+   const [lights, setLights] = useState< Bulb[] | null>(null);
    const [isLoading, setIsLoading] = useState(true);
    const [err, setErr] = useState('');
 
@@ -18,8 +19,16 @@ export default function HueLights() {
    const pollingInterval = 1000;
 
    function normalizeLightData(data: any) {
-      let myLights: unknown[] = [];
-      Object.entries(data).forEach((light) => {
+      let myLights: Bulb[] = [];
+      Object.entries(data).forEach((light:any) => {
+         /* 
+         stamp the unique light id [0] on the light object [1]
+         this is needed because write operations such as turning
+         on/off a light require this light number
+         */
+         light[1].num = light[0];
+         // push combined object to result array
+         let myBulb:Bulb = light[1];
          myLights.push(light[1])
       }
       )
@@ -37,10 +46,8 @@ export default function HueLights() {
          setLights(normalizeLightData(data));
          setErr('')
          } 
-         catch(error) {
-            setErr("Error loading data from Hue Bridge, please check the console for issues.");
-            setIsLoading(false)
-         }
+         catch(error) { setErr("Error loading data from Hue Bridge, please check the console for issues.") }
+         finally { setIsLoading(false) }
       };
       fetchLightData()
     }, pollingInterval);
@@ -48,8 +55,8 @@ export default function HueLights() {
   return (
    <>
    { err? err : ""}
-   { isLoading? <p>loadingggg......</p> : ""}
-   {lights ? <div>{lights.map(light =>( <HueLight light={light} key={light?.uniqueid} />))}</div> : ""}
+   { isLoading? <p>loading...</p> : ""}
+   {lights ? <div>{lights.map(light =>( <HueLight light={light} key={light?.num} />))}</div> : ""}
    </>
   )
 }
