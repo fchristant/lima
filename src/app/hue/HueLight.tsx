@@ -59,8 +59,14 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
    note: the random 'key' on this div ensures that React sees it as a new div each time this component re-renders
    this ensures that the 'highlight' animation is freshly started each time.
    */
-   <div className={'hue-light' + (isRerender.current? ' hue-light--highlight':'')} key={Math.random()} style={{opacity: !props?.light?.state?.reachable? "0.3" : "1"}}>
-      Name: {props?.light?.name}<br/>
+   <div className='hue-light' style={{
+      opacity: (!props?.light?.state?.reachable? "0.3" : "1"),
+      borderColor: lampColor
+      }}>
+
+      {props?.light?.name}<br/>
+
+      {/*
       Number: {props?.light?.num}<br/>
       State: {props?.light?.state?.on? "on" : "off"}<br/>
       Reachable: {props?.light?.state?.reachable? "true" : "false"}<br/>
@@ -71,7 +77,10 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
       CT Kelvin: {lampKelvin}<br/>
       XY: {props?.light?.state?.xy}<br/>
       Color: {lampColor}
-      <div className="hue-light__spot" style={{color: lampColor}}></div>
+      */}
+      <div className="hue-light__spot" style={{color: lampColor}}>
+         <div className={isRerender.current? ' hue-light--highlight' : ''} key={Math.random()}></div>
+      </div>
    </div>
   )
 }, didLightStateChange);

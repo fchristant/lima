@@ -4,11 +4,13 @@
    padding:1rem;
    margin: 0.3rem;
    border-radius: 10px;
+   transition: all 0.5s linear;
 }
 
 .hue-light__spot {
    width: 60px;
    height:60px;
+   position: relative;
    border-radius: 50%;
    margin:3rem;
    background-color: currentColor;
@@ -17,14 +19,35 @@
 }
 
 .hue-light--highlight {
-   animation: highlight 500ms ease-out;
+   /*animation: highlight 500ms ease-out;*/
+   animation: halo 1s 0s ease-out;
+   position: absolute;
+   width: 80px;
+   height: 80px;
+   border:3px solid transparent;
+   box-shadow: 0 0 1px 2px rgba(255, 255, 255, 0.2);
+   border-radius: 50%;
+   opacity: 0;
+   top: -10px;
+   left:-10px;
 }
 
 @keyframes highlight {
+   0% { border-color:transparent; }
+   40% { border-color:transparent; }
+   100% { border-color: rgba(255,255,255,0.1); }
+ }
+
+ @keyframes halo {
    0% {
-     border-color: #ccc;;
+     opacity: 0;
+     transform: scale(0.1);
+   }
+   50% {
+     opacity: 1;
    }
    100% {
-     border-color: greenyellow;
+     opacity: 0;
+     transform: scale(1.6);
    }
  }
