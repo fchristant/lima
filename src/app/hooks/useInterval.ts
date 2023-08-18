@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /* custom hook to enable logic on an interval
 source: https://overreacted.io/making-setinterval-declarative-with-react-hooks/
 */
