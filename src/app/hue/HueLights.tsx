@@ -39,7 +39,7 @@ export default function HueLights() {
       const fetchLightData = async () => {
          try {
          // get light data from local Hue Bridge
-         const result = await fetch('http://' + process.env.NEXT_PUBLIC_HUE_IP + '/api/' + process.env.NEXT_PUBLIC_HUE_USERNAME + '/lights');
+         const result = await fetch('https://' + process.env.NEXT_PUBLIC_HUE_IP + '/api/' + process.env.NEXT_PUBLIC_HUE_USERNAME + '/lights');
          // convert network result to JSON
          const data = await result.json()
          // normalize data and save result in state
