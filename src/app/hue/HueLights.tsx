@@ -12,7 +12,7 @@ export default function HueLights() {
 
    const [lights, setLights] = useState< Bulb[] | null>(null);
    const [isLoading, setIsLoading] = useState(true);
-   const [err, setErr] = useState('');
+   const [err, setErr] = useState<any>('');
 
    /* interval at which to make poll request to the API in milliseconds
    Do not go below 100 as this may overload the Hue Bridge */
@@ -39,17 +39,29 @@ export default function HueLights() {
       const fetchLightData = async () => {
          try {
          // get light data from local Hue Bridge
-         const result = await fetch(process.env.NEXT_PUBLIC_HUE_PROTOCOL + '://' + process.env.NEXT_PUBLIC_HUE_IP + '/api/' + process.env.NEXT_PUBLIC_HUE_USERNAME + '/lights');
+         const result = await fetch(process.env.NEXT_PUBLIC_HUE_API_ADDRESS + '/api/' + process.env.NEXT_PUBLIC_HUE_API_USERNAME + '/lights');
          // convert network result to JSON
          const data = await result.json()
-         // normalize data and save result in state
-         setLights(normalizeLightData(data));
-         setErr('')
+         
+         if (data[0]?.error) {
+            /* the Hue V1 API returns a 200 code even when there is an error
+            so we need to check the error object of the response to detect
+            a failure */
+            setErr(data[0]?.error?.description)
+         } else {
+            // normalize data and save result in state
+            setLights(normalizeLightData(data));
+            setErr('')
+         }
          } 
-         catch(error) { setErr("Error loading data from Hue Bridge, please check the console for issues.") }
+         catch(error:any) { 
+            setErr(error? error.message : "Error loading data from Hue Bridge, please check the console for issues.") 
+         }
          finally { setIsLoading(false) }
       };
-      fetchLightData()
+      if (!err) {
+         fetchLightData()
+      }
     }, pollingInterval);
 
   return (

@@ -3,7 +3,7 @@ import './header.css'
 export default function Header() {
   return (
       <header className='layout-header'>
-         <h1>Philips Hue Web App</h1>
+         <h1>BlackWhole</h1>
       </header>
   )
 }
