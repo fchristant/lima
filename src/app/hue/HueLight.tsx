@@ -4,6 +4,7 @@ import { memo, useEffect, useRef } from 'react';
 import './huelight.css'
 import { cie2RGB,mired2Kelvin, kelvin2RGB } from '../utils/color';
 import { Bulb } from '../types/types';
+import HueLightSwitch from './HueLightSwitch';
 
 const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
 
@@ -82,6 +83,7 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
          */}
          <div className={isRerender.current? ' hue-light--highlight' : ''} key={Math.random()}></div>
       </div>
+      <HueLightSwitch light={props?.light?.num} on={props?.light?.state?.on} reachable={props?.light?.state?.reachable} />
    </div>
   )
 }, didLightStateChange);

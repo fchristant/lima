@@ -16,7 +16,7 @@ export default function HueLights(props: { group?: string[] | null }) {
 
    /* interval at which to make poll request to the API in milliseconds
    Do not go below 100 as this may overload the Hue Bridge */
-   const pollingInterval = 100;
+   const pollingInterval = 200;
 
    function normalizeLightData(data: any) {
 

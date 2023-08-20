@@ -12,7 +12,7 @@ import Footer from './home/footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Philips Hue Web App'
+  title: 'BlackWhole'
 }
 
 export default function RootLayout({

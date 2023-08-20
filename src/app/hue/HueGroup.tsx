@@ -5,12 +5,6 @@ import { BulbGroup } from '../types/types';
 
 export default function HueGroup(props: { onSelectGroup: (arg0: any) => void, key: string, group: BulbGroup | null, activeGroup: string | null }) {
 
-   console.log(props?.activeGroup)
-
-if(props?.activeGroup === props?.group?.num) {
-   console.log('match for: ' + props?.activeGroup)
-}
-
   return (
    <>
       { props?.group? 
