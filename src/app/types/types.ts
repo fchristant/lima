@@ -14,4 +14,10 @@ type Bulb = {
    }
 }
 
-export type {Bulb}
+type BulbGroup = {
+   num: string,
+   name: string,
+   type: string
+}
+
+export type {Bulb, BulbGroup}

@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useInterval} from '../hooks/useInterval'
 import { Bulb } from "../types/types";
 import HueLight from "./HueLight";
 
-export default function HueLights() {
+export default function HueLights(props: { group?: string[] | null }) {
 
    /* this component polls the Hue Bridge V1 API for 'lights' information
    and then renders 'light' child components to visualize them */
@@ -16,22 +16,30 @@ export default function HueLights() {
 
    /* interval at which to make poll request to the API in milliseconds
    Do not go below 100 as this may overload the Hue Bridge */
-   const pollingInterval = 1000;
+   const pollingInterval = 100;
 
    function normalizeLightData(data: any) {
+
       let myLights: Bulb[] = [];
       Object.entries(data).forEach((light:any) => {
+
          /* 
          stamp the unique light id [0] on the light object [1]
          this is needed because write operations such as turning
          on/off a light require this light number
          */
          light[1].num = light[0];
-         // push combined object to result array
-         let myBulb:Bulb = light[1];
-         myLights.push(light[1])
-      }
-      )
+         
+         /* when a group filter is set, only add the light to the to-render
+         array when it belongs to the group */
+         if (props?.group) {
+            if (props?.group.includes(light[1].num)) {
+               myLights.push(light[1])
+            }
+         } else {
+            myLights.push(light[1])
+         }
+      })
       return myLights;
    }
 
@@ -67,8 +75,8 @@ export default function HueLights() {
   return (
    <>
    { err? err : ""}
-   { isLoading? <p>loading...</p> : ""}
-   {lights ? <div>{lights.map(light =>( <HueLight light={light} key={light?.num} />))}</div> : ""}
+   { isLoading? <p>loading lights...</p> : ""}
+   { lights ? <div>{lights.map(light =>( <HueLight light={light} key={light?.num} />))}</div> : ""}
    </>
   )
 }
