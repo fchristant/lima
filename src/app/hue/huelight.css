@@ -1,3 +1,4 @@
+/* card wrapper for a single light */
 .hue-light {
    display:inline-block;
    border:3px solid #ccc;
@@ -7,7 +8,8 @@
    transition: all 0.5s linear;
 }
 
-.hue-light__spot {
+/* rendition of the light state */
+ .hue-light__spot {
    width: 60px;
    height:60px;
    position: relative;
@@ -15,11 +17,13 @@
    margin:3rem;
    background-color: currentColor;
    box-shadow: 0 0 40px 16px currentColor;
-   transition: all 0.5s linear;
+   transition: --a 1s, color 0.5s linear;
+   background:conic-gradient(currentColor var(--a),rgba(255, 255, 255, 1));
+   border: 5px solid currentColor;
 }
 
+/* animation element for when there is an incoming change */
 .hue-light--highlight {
-   /*animation: highlight 500ms ease-out;*/
    animation: halo 1s 0s ease-out;
    position: absolute;
    width: 80px;
@@ -28,15 +32,9 @@
    box-shadow: 0 0 1px 2px rgba(255, 255, 255, 0.2);
    border-radius: 50%;
    opacity: 0;
-   top: -10px;
-   left:-10px;
+   top: -15px;
+   left:-15px;
 }
-
-@keyframes highlight {
-   0% { border-color:transparent; }
-   40% { border-color:transparent; }
-   100% { border-color: rgba(255,255,255,0.1); }
- }
 
  @keyframes halo {
    0% {
@@ -50,4 +48,12 @@
      opacity: 0;
      transform: scale(1.6);
    }
+ }
+
+ /* custom property that controls angle of conic gradient
+ that communicates brightness of light */
+ @property --a {
+   syntax: '<angle>';
+   inherits: false;
+   initial-value: 180deg;
  }

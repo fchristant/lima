@@ -28,9 +28,9 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
    'mired', the below converts it into the Kelvin scale */
    let lampKelvin = mired2Kelvin(props?.light?.state?.ct);
    
-   if (!props?.light?.state?.on || !props?.light?.state?.reachable) {
+   if (!props?.light?.state?.on || !props?.light?.state?.reachable || props?.light?.state?.bri === 0) {
 
-      // if light is off or not reachable, render as gray/dull
+      // if light is off, not reachable or on with zero brightness, render as gray/dull
       lampColor = 'rgba(51,51,51,1.00)';
 
    } else if (props?.light?.state?.colormode === 'ct' && !props?.light?.state?.xy) {
@@ -45,7 +45,7 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
       let brightness = props?.light?.state?.bri / 255;
       lampColor = 'rgba(' + kRGB[0] + ', ' + kRGB[1] + ', ' +  kRGB[2] + ',' + brightness.toFixed(2) + ')';
 
-   } else if (props.light.state.xy && props.light.state.bri) {
+   } else if (props?.light?.state?.xy && props?.light?.state?.bri) {
       
       // assume that this is a color bulb
 
@@ -55,6 +55,18 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
 
    }
 
+   /* convert brightness to degrees, which will be used to render a dial-like
+   conic gradient that communicates the brightness of the light on a 360 degree 
+   circle */
+   let deg
+   if (!props?.light?.state?.on || !props?.light?.state?.reachable || props?.light?.state?.bri === 0) {
+      // render default state for an inactive light (off, not reachable, or brightness zero)
+      deg = 1
+   } else {
+      // calculate degrees, ensure a minimum of 10 deg for an attractive rendering
+      deg = Math.max(10, Math.round((360 / 255) * props?.light?.state?.bri));
+   }
+   
   return (
  
    <div className='hue-light' style={{
@@ -63,6 +75,7 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
       }}>
 
       {props?.light?.name}<br/>
+      Brightness: {props?.light?.state?.bri}<br/>
 
       {/*
       Number: {props?.light?.num}<br/>
@@ -76,7 +89,8 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
       XY: {props?.light?.state?.xy}<br/>
       Color: {lampColor}
       */}
-      <div className="hue-light__spot" style={{color: lampColor}}>
+    
+      <div className="hue-light__spot" style={{color: lampColor, '--a': deg + 'deg'}}>
          {  /* 
          note: the random 'key' on this div ensures that React sees it as a new div each time this component re-renders
          this ensures that the 'highlight' animation is freshly started each time.
