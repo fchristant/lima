@@ -50,6 +50,6 @@ export default function HueLightColorPicker(props: { light: string, currentColor
    }
 
   return (
-   <input type="color" className="hue-light-picker" value={ props?.currentColor } onChange={ changeColor} />
+   <input type="color" className="hue-light-color-picker" value={ props?.currentColor } onChange={ changeColor} />
   )
 }

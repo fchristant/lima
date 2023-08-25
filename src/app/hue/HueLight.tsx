@@ -6,6 +6,7 @@ import { cie2RGB,mired2Kelvin, kelvin2RGB, rgb2Hex } from '../utils/color';
 import { Bulb } from '../types/types';
 import HueLightSwitch from './HueLightSwitch';
 import HueLightColorPicker from './HueLightColorPicker';
+import HueLightTemperaturePicker from './HueLightTemperaturePicker';
 
 // add custom CSS property type checking
  type MyCustomCSS = CSSProperties & Record<`--${string}`, number | string>;
@@ -28,6 +29,7 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
    // used to calculate on-screen RGB value of light
    let lampColor!:string;
    let showColorPicker = props?.light?.state?.on && props?.light?.state?.reachable && props?.light?.state?.xy
+   let showTemperaturePicker = props?.light?.state?.on && props?.light?.state?.reachable && !props?.light?.state?.xy
 
    /* the 'ct' (color temperature) value of the light is expressed as 
    'mired', the below converts it into the Kelvin scale */
@@ -105,6 +107,7 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
       </div>
       <HueLightSwitch light={props?.light?.num} on={props?.light?.state?.on} reachable={props?.light?.state?.reachable} />
       { showColorPicker? <HueLightColorPicker light={props?.light?.num} currentColor={ lampColor } /> : "" }
+      { showTemperaturePicker? <HueLightTemperaturePicker light={props?.light?.num} currentTemperature={ props?.light?.state?.ct } /> : "" }
    </div>
   )
 }, didLightStateChange);

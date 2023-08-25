@@ -1,4 +1,4 @@
-.hue-light-color-picker {
+.hue-light-picker {
    width: 40px;
    height:40px;
    border-radius: 50%;
@@ -9,16 +9,16 @@
    cursor: pointer;
 }
 
-.hue-light-color-picker::-webkit-color-swatch-wrapper {
+.hue-light-picker::-webkit-color-swatch-wrapper {
 	padding: 0;
 }
 
-.hue-light-color-picker::-webkit-color-swatch {
+.hue-light-picker::-webkit-color-swatch {
    border-radius: 50%;
    border: none;
  }
 
- .hue-light--color-picker::-moz-color-swatch {
+ .hue-light-picker::-moz-color-swatch {
    border-radius: 50%;
    border: none;
  }
