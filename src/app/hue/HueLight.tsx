@@ -1,10 +1,14 @@
 "use client";
 
-import { memo, useEffect, useRef } from 'react';
+import { CSSProperties, memo, useEffect, useRef } from 'react';
 import './huelight.css'
-import { cie2RGB,mired2Kelvin, kelvin2RGB } from '../utils/color';
+import { cie2RGB,mired2Kelvin, kelvin2RGB, rgb2Hex } from '../utils/color';
 import { Bulb } from '../types/types';
 import HueLightSwitch from './HueLightSwitch';
+import HueLightColorPicker from './HueLightColorPicker';
+
+// add custom CSS property type checking
+ type MyCustomCSS = CSSProperties & Record<`--${string}`, number | string>;
 
 const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
 
@@ -22,7 +26,8 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
    useEffect(() => { isRerender.current = true; }, []);
 
    // used to calculate on-screen RGB value of light
-   let lampColor; 
+   let lampColor!:string;
+   let showColorPicker = props?.light?.state?.on && props?.light?.state?.reachable && props?.light?.state?.xy
 
    /* the 'ct' (color temperature) value of the light is expressed as 
    'mired', the below converts it into the Kelvin scale */
@@ -31,7 +36,7 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
    if (!props?.light?.state?.on || !props?.light?.state?.reachable || props?.light?.state?.bri === 0) {
 
       // if light is off, not reachable or on with zero brightness, render as gray/dull
-      lampColor = 'rgba(51,51,51,1.00)';
+      lampColor = '#333333';
 
    } else if (props?.light?.state?.colormode === 'ct' && !props?.light?.state?.xy) {
       
@@ -43,7 +48,8 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
       /* kelvin to rgb does not take into account the lights' brightness, hence we use the rgb 'alpha'
       channel to mimick it */
       let brightness = props?.light?.state?.bri / 255;
-      lampColor = 'rgba(' + kRGB[0] + ', ' + kRGB[1] + ', ' +  kRGB[2] + ',' + brightness.toFixed(2) + ')';
+      lampColor = rgb2Hex(kRGB[0], kRGB[1], kRGB[2])
+      //lampColor = 'rgba(' + kRGB[0] + ', ' + kRGB[1] + ', ' +  kRGB[2] + ',' + brightness.toFixed(2) + ')';
 
    } else if (props?.light?.state?.xy && props?.light?.state?.bri) {
       
@@ -51,7 +57,7 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
 
       // convert xy color coordinate of the CIE color system to RGB
       let lampColorRGB = cie2RGB(props.light.state.xy[0],props.light.state.xy[1],props.light.state.bri);
-      lampColor = 'rgba(' + lampColorRGB.r + ', ' + lampColorRGB.g + ', ' +  lampColorRGB.b + ',1.00)';
+      lampColor = rgb2Hex(lampColorRGB.r, lampColorRGB.g, lampColorRGB.b)
 
    }
 
@@ -90,7 +96,7 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
       Color: {lampColor}
       */}
     
-      <div className="hue-light__spot" style={{color: lampColor, '--a': deg + 'deg'}}>
+      <div className="hue-light__spot" style={{color: lampColor, '--a': deg + 'deg'} as MyCustomCSS}>
          {  /* 
          note: the random 'key' on this div ensures that React sees it as a new div each time this component re-renders
          this ensures that the 'highlight' animation is freshly started each time.
@@ -98,6 +104,7 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
          <div className={isRerender.current? ' hue-light--highlight' : ''} key={Math.random()}></div>
       </div>
       <HueLightSwitch light={props?.light?.num} on={props?.light?.state?.on} reachable={props?.light?.state?.reachable} />
+      { showColorPicker? <HueLightColorPicker light={props?.light?.num} currentColor={ lampColor } /> : "" }
    </div>
   )
 }, didLightStateChange);

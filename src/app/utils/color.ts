@@ -35,6 +35,32 @@ function cie2RGB(px: number, py: number, bri: number) {
 
 }
 
+
+function rgb2CIE(r: number, g: number, b: number) {
+
+   /* 
+   converts a XY color in the CIE color space to RGB.
+   method is based on logic from the Hue API documentation, 
+   converted to JavaScript.
+   https://stackoverflow.com/questions/22564187/rgb-to-philips-hue-hsb
+   */
+
+   // Normalize the RGB values from the 0-255 range to 0-1
+   r = r / 255.0;
+   g = g / 255.0;
+   b = b / 255.0;
+
+   r = (r > 0.04045) ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
+   g = (g > 0.04045) ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
+   b = (b > 0.04045) ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
+
+   const X = r * 0.4124 + g * 0.3576 + b * 0.1805;
+   const Y = r * 0.2126 + g * 0.7152 + b * 0.0722;
+   const Z = r * 0.0193 + g * 0.1192 + b * 0.9505;
+   
+   return [X / (X + Y + Z), Y / (X + Y + Z), Math.floor(Y * 254)];
+}
+
  function mired2Kelvin(mired: number) {
    // convert a 'mired' color temperature value into Kelvin
    return Math.round((1000000 / mired));
@@ -103,4 +129,21 @@ function cie2RGB(px: number, py: number, bri: number) {
    return [Math.floor(red), Math.floor(green), Math.floor(blue)]
  }
 
-export {cie2RGB, mired2Kelvin, kelvin2RGB};
+function rgb2Hex(r:number, g:number, b:number) {
+   return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('')
+} 
+
+function hex2RGB(hex:string) {
+   // Remove the hash at the start if it's there
+   hex = hex.charAt(0) === '#' ? hex.slice(1) : hex;
+
+   // Parse r, g, b values
+   const bigint = parseInt(hex, 16);
+   const r = (bigint >> 16) & 255;
+   const g = (bigint >> 8) & 255;
+   const b = bigint & 255;
+
+   return [r, g, b];
+}
+
+export {cie2RGB, rgb2CIE ,mired2Kelvin, kelvin2RGB, rgb2Hex, hex2RGB};
