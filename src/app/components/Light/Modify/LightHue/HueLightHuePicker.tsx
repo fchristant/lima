@@ -1,7 +1,7 @@
 "use client";
 
 import './huelighthuepicker.css'
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import throttle from 'lodash.throttle';
 
 export default function HueLightHuePicker(props: { light: string, currentHue: number, enable:boolean }) {

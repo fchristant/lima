@@ -1,6 +1,6 @@
 "use client";
 
-export default function HueGroupSwitch(props: { group: string, on: boolean }) {
+export default function HueGroupToggle(props: { group: string, on: boolean }) {
 
    function toggleGroup(e:any) {
       

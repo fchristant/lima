@@ -1,7 +1,7 @@
 "use client";
 
 import './huelighttemperaturepicker.css'
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import throttle from 'lodash.throttle';
 
 export default function HueLightTemperaturePicker(props: { light: string, currentTemperature: number, enable:boolean }) {
