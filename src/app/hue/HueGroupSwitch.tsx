@@ -1,17 +1,13 @@
 "use client";
 
 import { useState } from 'react';
-import './huelightswitch.css'
 
 export default function HueGroupSwitch(props: { group: string, on: boolean }) {
-
-   const [groupOn, setGroupon] = useState(props?.on)
 
    function toggleGroup(e:any) {
       
       e.preventDefault();
-      let newState = groupOn? false : true
-      const bodyData = { on: newState };
+      const bodyData = { on: !props?.on };
  
       fetch(process.env.NEXT_PUBLIC_HUE_API_ADDRESS + '/api/' + process.env.NEXT_PUBLIC_HUE_API_USERNAME + '/groups/' + props?.group + '/action', {
          method: 'PUT', 
@@ -25,9 +21,6 @@ export default function HueGroupSwitch(props: { group: string, on: boolean }) {
             so we need to check the error object of the response to detect
             a failure */
             console.error('Error:', data[0]?.error?.description);
-         } else {
-            // on/off change assumed succesful, update state in UI
-            setGroupon(newState)
          }
       })
       .catch(error => {
@@ -38,7 +31,7 @@ export default function HueGroupSwitch(props: { group: string, on: boolean }) {
 
   return (
    <>
-   <button className='hue-group-switch' onClick={toggleGroup}>{groupOn? 'off' : 'on'}</button>
+   <button className='hue-group-switch' onClick={toggleGroup}>{props?.on? 'off' : 'on'}</button>
    </>
   )
 }

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { BulbGroup } from "../types/types";
 import HueGroup from "./HueGroup";
 import HueLights from "./HueLights";
+import { useInterval } from "../hooks/useInterval";
 
 export default function HueGroups() {
 
@@ -15,6 +16,10 @@ export default function HueGroups() {
    const [err, setErr] = useState<any>('');
    const [activeGroup, setActiveGroup] = useState< string | null>(null)
    const [groupLights, setGroupLights] = useState(null)
+
+   /* interval at which to make poll request to the API in milliseconds
+   Do not go below 100 as this may overload the Hue Bridge */
+   const pollingInterval = 500;
 
    function normalizeGroupData(data: any) {
       let myGroups: BulbGroup[] = [];
@@ -33,7 +38,7 @@ export default function HueGroups() {
       return myGroups;
    }
 
-   useEffect(() => { 
+   useInterval(() => {
       const fetchGroupData = async () => {
          try {
          // get group data from local Hue Bridge
@@ -60,7 +65,9 @@ export default function HueGroups() {
       if (!err) {
          fetchGroupData()
       }
-   }, []);
+    }, pollingInterval);
+
+
 
    useEffect(() => { 
      // when the active group changes, find the lights that are part of the group
