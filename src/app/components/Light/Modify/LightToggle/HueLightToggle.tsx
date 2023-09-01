@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from 'react';
+import './huelighttoggle.css'
 
-export default function HueGroupSwitch(props: { group: string, on: boolean }) {
+export default function HueLightToggle(props: { light: string, on: boolean, reachable: boolean; }) {
 
-   function toggleGroup(e:any) {
+   function toggleLight(e:any) {
       
-      e.preventDefault();
-      const bodyData = { on: !props?.on };
+      e.preventDefault();   
+      const bodyData = { on: props?.on? false : true};
  
-      fetch(process.env.NEXT_PUBLIC_HUE_API_ADDRESS + '/api/' + process.env.NEXT_PUBLIC_HUE_API_USERNAME + '/groups/' + props?.group + '/action', {
+      fetch(process.env.NEXT_PUBLIC_HUE_API_ADDRESS + '/api/' + process.env.NEXT_PUBLIC_HUE_API_USERNAME + '/lights/' + props?.light + '/state', {
          method: 'PUT', 
          headers: { 'Content-Type': 'application/json' },
          body: JSON.stringify(bodyData)
@@ -31,7 +31,7 @@ export default function HueGroupSwitch(props: { group: string, on: boolean }) {
 
   return (
    <>
-   <button className='hue-group-switch' onClick={toggleGroup}>{props?.on? 'off' : 'on'}</button>
+   <button className='hue-light-switch' onClick={toggleLight} disabled={!props?.reachable}>{props.on? 'off' : 'on'}</button>
    </>
   )
 }

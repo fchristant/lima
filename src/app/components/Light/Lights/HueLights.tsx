@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useInterval} from '../hooks/useInterval'
-import { Bulb } from "../types/types";
-import HueLight from "./HueLight";
+import { useInterval} from '../../../hooks/useInterval'
+import { Bulb } from "../../../types/types";
+import HueLight from "../Light/HueLight";
 
 export default function HueLights(props: { group?: string[] | null }) {
 
@@ -16,7 +16,7 @@ export default function HueLights(props: { group?: string[] | null }) {
 
    /* interval at which to make poll request to the API in milliseconds
    Do not go below 100 as this may overload the Hue Bridge */
-   const pollingInterval = 1000;
+   const pollingInterval = 200;
 
    function normalizeLightData(data: any) {
 

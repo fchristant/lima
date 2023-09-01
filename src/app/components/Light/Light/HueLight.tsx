@@ -2,14 +2,14 @@
 
 import { CSSProperties, memo, useEffect, useRef } from 'react';
 import './huelight.css'
-import { cie2RGB,mired2Kelvin, kelvin2RGB, rgb2Hex } from '../utils/color';
-import { Bulb } from '../types/types';
-import HueLightSwitch from './HueLightSwitch';
-import HueLightColorPicker from './HueLightColorPicker';
-import HueLightTemperaturePicker from './HueLightTemperaturePicker';
-import HueLightBrightnessPicker from './HueLightBrightnessPicker';
-import HueLightSaturationPicker from './HueLightSaturationPicker';
-import HueLightHuePicker from './HueLightHuePicker';
+import { cie2RGB,mired2Kelvin, kelvin2RGB, rgb2Hex } from '../../../utils/color';
+import { Bulb } from '../../../types/types';
+import HueLightToggle from '../Modify/LightToggle/HueLightToggle';
+import HueLightColorPicker from '../Modify/LightColor/HueLightColorPicker';
+import HueLightTemperaturePicker from '../Modify/LightTemperature/HueLightTemperaturePicker';
+import HueLightBrightnessPicker from '../Modify/LightBrightness/HueLightBrightnessPicker';
+import HueLightSaturationPicker from '../Modify/LightSaturation/HueLightSaturationPicker';
+import HueLightHuePicker from '../Modify/LightHue/HueLightHuePicker';
 
 // add custom CSS property type checking
  type MyCustomCSS = CSSProperties & Record<`--${string}`, number | string>;
@@ -87,7 +87,7 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
       borderColor: lampColor
       }}>
 
-      {props?.light?.name}<hr/>
+      {props?.light?.name} ({props?.light?.num})<hr/>
       Brightness: {props?.light?.state?.bri}<br/>
       Saturation: {props?.light?.state?.sat}<br/>
       Hue: {props?.light?.state?.hue}<br/>
@@ -113,7 +113,7 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
          */}
          <div className={isRerender.current? ' hue-light--highlight' : ''} key={Math.random()}></div>
       </div>
-      <HueLightSwitch light={props?.light?.num} on={props?.light?.state?.on} reachable={props?.light?.state?.reachable} />
+      <HueLightToggle light={props?.light?.num} on={props?.light?.state?.on} reachable={props?.light?.state?.reachable} />
       <HueLightColorPicker light={props?.light?.num} currentColor={ lampColor } enable={showColorPicker} />
       <HueLightTemperaturePicker light={props?.light?.num} currentTemperature={ props?.light?.state?.ct } enable={showTemperaturePicker} />
       <HueLightBrightnessPicker light={props?.light?.num} currentBrightness={ props?.light?.state?.bri } enable={showBrightnessPicker} />

@@ -1,7 +1,7 @@
 "use client";
 
 import './huelightbrightnesspicker.css'
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import throttle from 'lodash.throttle';
 
 export default function HueLightBrightnessPicker(props: { light: string, currentBrightness: number, enable:boolean }) {

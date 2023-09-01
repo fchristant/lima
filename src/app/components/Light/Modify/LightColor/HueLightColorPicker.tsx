@@ -1,7 +1,7 @@
 "use client";
 
 import './huelightcolorpicker.css'
-import { hex2RGB, rgb2CIE } from '../utils/color';
+import { hex2RGB, rgb2CIE } from '../../../../utils/color';
 import { useEffect, useState } from 'react';
 
 export default function HueLightColorPicker(props: { light: string, currentColor: string, enable:boolean }) {
