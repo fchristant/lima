@@ -67,7 +67,6 @@ export default function HueGroups() {
      if (activeGroup && groups) {
       Object.entries(groups).forEach((group:any) => {
         if (group[1]?.num === activeGroup) {
-         //console.log('found it: ' + group[1]?.lights)
          setGroupLights(group[1]?.lights)
         }
       })

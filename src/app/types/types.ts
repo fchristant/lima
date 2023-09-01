@@ -18,6 +18,9 @@ type BulbGroup = {
    num: string,
    name: string,
    type: string
+   state: {
+      any_on: boolean
+   }
 }
 
 export type {Bulb, BulbGroup}

@@ -16,8 +16,6 @@ import HueLightHuePicker from './HueLightHuePicker';
 
 const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
 
-   console.log(props?.light?.state?.sat)
-
    /* 
    this component renders a visualization of a single light
    based on its state
