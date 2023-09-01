@@ -10,7 +10,7 @@ type Bulb = {
       bri: number,
       hue: number,
       sat: number,
-      xy: number[]
+      xy: any
    }
 }
 

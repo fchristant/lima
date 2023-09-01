@@ -4,7 +4,7 @@ import './huelightcolorpicker.css'
 import { hex2RGB, rgb2CIE } from '../utils/color';
 import { useEffect, useState } from 'react';
 
-export default function HueLightColorPicker(props: { light: string, currentColor: string }) {
+export default function HueLightColorPicker(props: { light: string, currentColor: string, enable:boolean }) {
 
    // track the color picked by the user
    const [pickColor, setPickColor] = useState<number[]>([]);
@@ -50,6 +50,6 @@ export default function HueLightColorPicker(props: { light: string, currentColor
    }
 
   return (
-   <input type="color" className="hue-light-color-picker" value={ props?.currentColor } onChange={ changeColor} />
+   <input type="color" className="hue-light-color-picker" value={ props?.currentColor } onChange={ changeColor} disabled={!props?.enable} />
   )
 }

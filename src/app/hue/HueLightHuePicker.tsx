@@ -1,19 +1,23 @@
 "use client";
 
-import './huelighttemperaturepicker.css'
+import './huelighthuepicker.css'
 import { useEffect, useMemo, useRef, useState } from 'react';
 import throttle from 'lodash.throttle';
 
-export default function HueLightTemperaturePicker(props: { light: string, currentTemperature: number, enable:boolean }) {
+export default function HueLightHuePicker(props: { light: string, currentHue: number, enable:boolean }) {
 
    // track the color picked by the user
-   const [pickTemperature, setTemperature] = useState(props?.currentTemperature);
+   const [pickHue, setHue] = useState(props?.currentHue);
 
-    const updateLight = (temperature:number) => {
+   useEffect(() => { 
+      setHue(props?.currentHue)
+    }, [props?.currentHue]);
+
+    const updateLight = (hue:number) => {
 
        // make a PUT call to the Hue API
        const bodyData = { 
-         ct: temperature
+         hue: hue
       };
 
       fetch(process.env.NEXT_PUBLIC_HUE_API_ADDRESS + '/api/' + process.env.NEXT_PUBLIC_HUE_API_USERNAME + '/lights/' + props?.light + '/state', {
@@ -42,16 +46,16 @@ export default function HueLightTemperaturePicker(props: { light: string, curren
     inspiration: https://stackblitz.com/edit/react-lodash-throttle?file=src%2FApp.js
     */
 
-    const makeApiRequestThrottled = useRef(throttle(updateLight, 300));
+    const makeApiRequestThrottled = useRef(throttle(updateLight, 100));
 
     const handleChange = (event:any) => {
-      setTemperature(parseInt(event?.target?.value))
+      setHue(parseInt(event?.target?.value))
       makeApiRequestThrottled.current(parseInt(event?.target?.value));
     };
 
    return (
       <div>
-         T <input type="range" className="hue-light-temperature-picker" min="153" max="500" value={pickTemperature} onChange={handleChange} disabled={!props?.enable}  />
+         H <input type="range" className="hue-light-saturation-picker" min="0" max="65535" value={pickHue} onChange={handleChange} disabled={!props?.enable}  />
       </div>
      )
 }

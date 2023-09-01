@@ -23,9 +23,9 @@ function cie2RGB(px: number, py: number, bri: number) {
    b = b <= 0.0031308 ? 12.92 * b : (1.0 + 0.055) * Math.pow(b, (1.0 / 2.4)) - 0.055;
 
    // Convert to [0, 255] range and clamp
-   r = Math.min(Math.round(r * 255), 255);
-   g = Math.min(Math.round(g * 255), 255);
-   b = Math.min(Math.round(b * 255), 255);
+   r = Math.max(Math.min(Math.round(r * 255), 255));
+   g = Math.max(0,Math.min(Math.round(g * 255), 255));
+   b = Math.max(0, Math.min(Math.round(b * 255), 255));
 
    return {
       'r' : r,

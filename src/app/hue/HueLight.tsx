@@ -7,11 +7,16 @@ import { Bulb } from '../types/types';
 import HueLightSwitch from './HueLightSwitch';
 import HueLightColorPicker from './HueLightColorPicker';
 import HueLightTemperaturePicker from './HueLightTemperaturePicker';
+import HueLightBrightnessPicker from './HueLightBrightnessPicker';
+import HueLightSaturationPicker from './HueLightSaturationPicker';
+import HueLightHuePicker from './HueLightHuePicker';
 
 // add custom CSS property type checking
  type MyCustomCSS = CSSProperties & Record<`--${string}`, number | string>;
 
 const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
+
+   console.log(props?.light?.state?.sat)
 
    /* 
    this component renders a visualization of a single light
@@ -28,8 +33,11 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
 
    // used to calculate on-screen RGB value of light
    let lampColor!:string;
-   let showColorPicker = props?.light?.state?.on && props?.light?.state?.reachable && props?.light?.state?.xy
-   let showTemperaturePicker = props?.light?.state?.on && props?.light?.state?.reachable && !props?.light?.state?.xy
+   let showColorPicker:boolean = props?.light?.state?.on && props?.light?.state?.reachable && props?.light?.state?.xy
+   let showTemperaturePicker:boolean = props?.light?.state?.on && props?.light?.state?.reachable && !props?.light?.state?.xy
+   let showBrightnessPicker:boolean = props?.light?.state?.on && props?.light?.state?.reachable
+   let showSaturationPicker:boolean = props?.light?.state?.on && props?.light?.state?.reachable && props?.light?.state?.xy
+   let showHuePicker:boolean = props?.light?.state?.on && props?.light?.state?.reachable && props?.light?.state?.xy
 
    /* the 'ct' (color temperature) value of the light is expressed as 
    'mired', the below converts it into the Kelvin scale */
@@ -60,7 +68,6 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
       // convert xy color coordinate of the CIE color system to RGB
       let lampColorRGB = cie2RGB(props.light.state.xy[0],props.light.state.xy[1],props.light.state.bri);
       lampColor = rgb2Hex(lampColorRGB.r, lampColorRGB.g, lampColorRGB.b)
-
    }
 
    /* convert brightness to degrees, which will be used to render a dial-like
@@ -82,8 +89,11 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
       borderColor: lampColor
       }}>
 
-      {props?.light?.name}<br/>
+      {props?.light?.name}<hr/>
       Brightness: {props?.light?.state?.bri}<br/>
+      Saturation: {props?.light?.state?.sat}<br/>
+      Hue: {props?.light?.state?.hue}<br/>
+      CT Kelvin: {lampKelvin}
 
       {/*
       Number: {props?.light?.num}<br/>
@@ -106,8 +116,11 @@ const HueLight = memo(function HueLight(props: { key: string, light: Bulb }) {
          <div className={isRerender.current? ' hue-light--highlight' : ''} key={Math.random()}></div>
       </div>
       <HueLightSwitch light={props?.light?.num} on={props?.light?.state?.on} reachable={props?.light?.state?.reachable} />
-      { showColorPicker? <HueLightColorPicker light={props?.light?.num} currentColor={ lampColor } /> : "" }
-      { showTemperaturePicker? <HueLightTemperaturePicker light={props?.light?.num} currentTemperature={ props?.light?.state?.ct } /> : "" }
+      <HueLightColorPicker light={props?.light?.num} currentColor={ lampColor } enable={showColorPicker} />
+      <HueLightTemperaturePicker light={props?.light?.num} currentTemperature={ props?.light?.state?.ct } enable={showTemperaturePicker} />
+      <HueLightBrightnessPicker light={props?.light?.num} currentBrightness={ props?.light?.state?.bri } enable={showBrightnessPicker} />
+      <HueLightSaturationPicker light={props?.light?.num} currentSaturation={ props?.light?.state?.sat } enable={showSaturationPicker} />
+      <HueLightHuePicker light={props?.light?.num} currentHue={ props?.light?.state?.hue } enable={showHuePicker} />
    </div>
   )
 }, didLightStateChange);
