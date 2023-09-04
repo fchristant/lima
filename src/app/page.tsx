@@ -1,5 +1,5 @@
-import HueBridge from "./components/Bridge/HueBridge";
-import HueGroups from "./components/Group/Groups/HueGroups";
+import HueBridge from "@components/Bridge/HueBridge";
+import HueGroups from "@components/Group/Groups/HueGroups";
 
 export default function Home() {
   return (

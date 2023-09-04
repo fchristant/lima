@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useInterval} from '../../../hooks/useInterval'
-import { Bulb } from "../../../types/types";
-import HueLight from "../Light/HueLight";
+import { useInterval} from '@hooks/useInterval'
+import { Bulb } from "types/hue";
+import HueLight from "@components/Light/Light/HueLight";
 
 export default function HueLights(props: { group?: string[] | null }) {
 

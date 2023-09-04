@@ -2,14 +2,14 @@
 
 import { CSSProperties, memo, useEffect, useRef } from 'react';
 import './huelight.css'
-import { cie2RGB,mired2Kelvin, kelvin2RGB, rgb2Hex } from '../../../utils/color';
-import { Bulb } from '../../../types/types';
-import HueLightToggle from '../Modify/LightToggle/HueLightToggle';
-import HueLightColorPicker from '../Modify/LightColor/HueLightColorPicker';
-import HueLightTemperaturePicker from '../Modify/LightTemperature/HueLightTemperaturePicker';
-import HueLightBrightnessPicker from '../Modify/LightBrightness/HueLightBrightnessPicker';
-import HueLightSaturationPicker from '../Modify/LightSaturation/HueLightSaturationPicker';
-import HueLightHuePicker from '../Modify/LightHue/HueLightHuePicker';
+import { cie2RGB,mired2Kelvin, kelvin2RGB, rgb2Hex } from '@utils/color';
+import { Bulb } from 'types/hue';
+import HueLightToggle from '@components/Light/Modify/LightToggle/HueLightToggle';
+import HueLightColorPicker from '@components/Light/Modify/LightColor/HueLightColorPicker';
+import HueLightTemperaturePicker from '@components/Light/Modify/LightTemperature/HueLightTemperaturePicker';
+import HueLightBrightnessPicker from '@components/Light/Modify/LightBrightness/HueLightBrightnessPicker';
+import HueLightSaturationPicker from '@components/Light/Modify/LightSaturation/HueLightSaturationPicker';
+import HueLightHuePicker from '@components/Light/Modify/LightHue/HueLightHuePicker';
 
 // add custom CSS property type checking
  type MyCustomCSS = CSSProperties & Record<`--${string}`, number | string>;

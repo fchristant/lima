@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { BulbGroup } from "../../../types/types";
-import HueGroup from "../Group/HueGroup";
-import HueLights from "../../Light/Lights/HueLights";
-import { useInterval } from "../../../hooks/useInterval";
+import { BulbGroup } from "types/hue";
+import HueGroup from "@components/Group/Group/HueGroup";
+import HueLights from "@components/Light/Lights/HueLights";
+import { useInterval } from "@hooks/useInterval";
 
 export default function HueGroups() {
 
@@ -80,7 +80,7 @@ export default function HueGroups() {
      } else {
       setGroupLights(null)
      }
-   }, [activeGroup]);
+   }, [activeGroup, groups]);
 
   return (
    <>

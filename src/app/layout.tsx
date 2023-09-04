@@ -1,13 +1,13 @@
-import './css/reset.css'
-import './css/globals.css'
-import './css/layout.css'
-import './css/typography.css'
+import '@styles/reset.css'
+import '@styles/globals.css'
+import '@styles/layout.css'
+import '@styles/typography.css'
 
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
-import Header from './home/header'
-import Footer from './home/footer'
+import Header from '@components/Page/Header/header'
+import Footer from '@components/Page/Footer/footer'
 
 const inter = Inter({ subsets: ['latin'] })
 

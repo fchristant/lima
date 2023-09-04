@@ -2,8 +2,8 @@
 
 import { memo } from 'react';
 import './huegroup.css'
-import { BulbGroup } from '../../../types/types';
-import HueGroupToggle from '../Modify/GroupToggle/HueGroupToggle';
+import { BulbGroup } from 'types/hue';
+import HueGroupToggle from '@components/Group/Modify/GroupToggle/HueGroupToggle';
 
 const HueGroup = memo(function HueGroup(props: { onSelectGroup: (arg0: any) => void, key: string, group: BulbGroup | null, activeGroup: string | null }) {
 
