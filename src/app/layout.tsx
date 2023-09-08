@@ -1,7 +1,7 @@
-import '@styles/reset.css'
-import '@styles/globals.css'
-import '@styles/layout.css'
-import '@styles/typography.css'
+import '@styles/global/reset.css'
+import '@styles/global/globals.css'
+import '@styles/global/layout.css'
+import '@styles/global/typography.css'
 
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
