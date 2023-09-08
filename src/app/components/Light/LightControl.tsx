@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import throttle from 'lodash.throttle';
+import { useEffect, useRef, useState } from "react";
+import throttle from "lodash.throttle";
 
 interface LightControlProps {
   light: string;
@@ -9,17 +9,24 @@ interface LightControlProps {
   enable: boolean;
   min: number;
   max: number;
-  attribute: 'hue' | 'sat' | 'ct' | 'bri';
+  attribute: "hue" | "sat" | "ct" | "bri";
   className: string;
 }
 
 const HUE_API_BASE_URL = `${process.env.NEXT_PUBLIC_HUE_API_ADDRESS}/api/${process.env.NEXT_PUBLIC_HUE_API_USERNAME}/lights`;
 
-export default function LightControl({ light, currentValue, enable, min, max, attribute, className }: LightControlProps) {
-
+export default function LightControl({
+  light,
+  currentValue,
+  enable,
+  min,
+  max,
+  attribute,
+  className,
+}: LightControlProps) {
   const [pickedValue, setPickedValue] = useState(currentValue);
 
-  useEffect(() => { 
+  useEffect(() => {
     setPickedValue(currentValue);
   }, [currentValue]);
 
@@ -28,15 +35,18 @@ export default function LightControl({ light, currentValue, enable, min, max, at
 
     try {
       const response = await fetch(`${HUE_API_BASE_URL}/${light}/state`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(bodyData)
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(bodyData),
       });
       const data = await response.json();
 
-      if (data[0]?.error) { console.error('Error:', data[0].error.description); }
-    } 
-    catch (error) { console.error('Error:', error); }
+      if (data[0]?.error) {
+        console.error("Error:", data[0].error.description);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }
 
   const makeApiRequestThrottled = useRef(throttle(updateLight, 100));
@@ -48,15 +58,16 @@ export default function LightControl({ light, currentValue, enable, min, max, at
   };
 
   return (
-    <div>{attribute}
-      <input 
-           type="range" 
-           className={className} 
-           min={min} 
-           max={max} 
-           value={pickedValue} 
-           onChange={handleChange} 
-           disabled={!enable} 
+    <div>
+      {attribute}
+      <input
+        type="range"
+        className={className}
+        min={min}
+        max={max}
+        value={pickedValue}
+        onChange={handleChange}
+        disabled={!enable}
       />
     </div>
   );

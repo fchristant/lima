@@ -1,12 +1,12 @@
 .group {
-   display:inline-block;
-   border:3px solid #ccc;
-   padding:1rem;
-   margin: 0.3rem;
-   border-radius: 10px;
-   transition: all 0.5s linear;
+  display: inline-block;
+  border: 3px solid #ccc;
+  padding: 1rem;
+  margin: 0.3rem;
+  border-radius: 10px;
+  transition: all 0.5s linear;
 }
 
 .group--active {
-   border-color: red;
+  border-color: red;
 }

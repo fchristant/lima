@@ -3,8 +3,8 @@ import Groups from "@components/Group/GroupList";
 
 export default function Home() {
   return (
-   <Bridge>
-      <Groups/>
-   </Bridge>
-  )
+    <Bridge>
+      <Groups />
+    </Bridge>
+  );
 }

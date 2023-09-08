@@ -1,26 +1,27 @@
 :root {
-   --main-padding: 2rem;
- }
+  --main-padding: 2rem;
+}
 
-html, body {
-   height: 100%;
+html,
+body {
+  height: 100%;
 }
 
 body {
-   display: flex;
-   flex-direction: column;
- }
-
-.layout-header {
-   padding: var(--main-padding);
+  display: flex;
+  flex-direction: column;
 }
 
- .layout-content {
-   flex: 1 0 auto;
-   padding: var(--main-padding);
- }
+.layout-header {
+  padding: var(--main-padding);
+}
 
- .layout-footer {
-   flex-shrink: 0;
-   padding: var(--main-padding);
- }
+.layout-content {
+  flex: 1 0 auto;
+  padding: var(--main-padding);
+}
+
+.layout-footer {
+  flex-shrink: 0;
+  padding: var(--main-padding);
+}
