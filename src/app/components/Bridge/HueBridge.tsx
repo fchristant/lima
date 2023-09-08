@@ -2,7 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-export default function HueBridge(props: { children: any; }) {
+interface HueBridgeProps {
+   children: React.ReactNode;
+ }
+
+export default function HueBridge({ children }: HueBridgeProps) {
 
    const [error, setError] = useState('');
    const [isReady, setIsReady] = useState(false);
@@ -20,8 +24,8 @@ export default function HueBridge(props: { children: any; }) {
 
   return (
    <>
-   {error? error : ''}
-   {isReady && props.children}
+   {error? <p>{error}</p> : ''}
+   {isReady && children}
    </>
   )
 }

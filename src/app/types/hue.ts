@@ -17,6 +17,7 @@ type Bulb = {
 type BulbGroup = {
    num: string,
    name: string,
+   lights: [],
    type: string
    state: {
       any_on: boolean

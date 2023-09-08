@@ -2,36 +2,41 @@
 
 import './huelighttoggle.css'
 
-export default function HueLightToggle(props: { light: string, on: boolean, reachable: boolean; }) {
+interface HueLightToggleProps {
+    light: string;
+    on: boolean;
+    reachable: boolean;
+}
 
-   function toggleLight(e:any) {
-      
-      e.preventDefault();   
-      const bodyData = { on: props?.on? false : true};
- 
-      fetch(process.env.NEXT_PUBLIC_HUE_API_ADDRESS + '/api/' + process.env.NEXT_PUBLIC_HUE_API_USERNAME + '/lights/' + props?.light + '/state', {
-         method: 'PUT', 
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify(bodyData)
-      })
-      .then(response => response.json())
-      .then(data => {
-         if (data[0]?.error) {
-            /* the Hue V1 API returns a 200 code even when there is an error
-            so we need to check the error object of the response to detect
-            a failure */
-            console.error('Error:', data[0]?.error?.description);
-         }
-      })
-      .catch(error => {
-         console.error('Error:', error);
-      });
+const HUE_API_BASE_URL = `${process.env.NEXT_PUBLIC_HUE_API_ADDRESS}/api/${process.env.NEXT_PUBLIC_HUE_API_USERNAME}/lights`;
 
-   }
+export default function HueLightToggle({ light, on, reachable }: HueLightToggleProps) {
 
-  return (
-   <>
-   <button className='hue-light-switch' onClick={toggleLight} disabled={!props?.reachable}>{props.on? 'off' : 'on'}</button>
-   </>
-  )
+    async function toggleLight(e: React.MouseEvent<HTMLButtonElement>) {
+        e.preventDefault();
+        const bodyData = { on: !on };
+
+        try {
+            const response = await fetch(`${HUE_API_BASE_URL}/${light}/state`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(bodyData)
+            });
+            const data = await response.json();
+
+            if (data[0]?.error) {
+                console.error('Error:', data[0].error.description);
+                // Consider adding user feedback here.
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            // Consider adding user feedback here.
+        }
+    }
+
+    return (
+        <button className='hue-light-switch' onClick={toggleLight} disabled={!reachable}>
+            {on ? 'off' : 'on'}
+        </button>
+    );
 }
