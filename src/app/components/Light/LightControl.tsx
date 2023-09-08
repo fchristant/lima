@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import throttle from 'lodash.throttle';
 
-interface HueLightControlPickerProps {
+interface LightControlProps {
   light: string;
   currentValue: number;
   enable: boolean;
@@ -15,7 +15,7 @@ interface HueLightControlPickerProps {
 
 const HUE_API_BASE_URL = `${process.env.NEXT_PUBLIC_HUE_API_ADDRESS}/api/${process.env.NEXT_PUBLIC_HUE_API_USERNAME}/lights`;
 
-const HueLightControlPicker: React.FC<HueLightControlPickerProps> = ({ light, currentValue, enable, min, max, attribute, className }) => {
+export default function LightControl({ light, currentValue, enable, min, max, attribute, className }: LightControlProps) {
 
   const [pickedValue, setPickedValue] = useState(currentValue);
 
@@ -34,14 +34,9 @@ const HueLightControlPicker: React.FC<HueLightControlPickerProps> = ({ light, cu
       });
       const data = await response.json();
 
-      if (data[0]?.error) {
-        console.error('Error:', data[0].error.description);
-        // Consider adding user feedback here.
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      // Consider adding user feedback here.
-    }
+      if (data[0]?.error) { console.error('Error:', data[0].error.description); }
+    } 
+    catch (error) { console.error('Error:', error); }
   }
 
   const makeApiRequestThrottled = useRef(throttle(updateLight, 100));
@@ -66,5 +61,3 @@ const HueLightControlPicker: React.FC<HueLightControlPickerProps> = ({ light, cu
     </div>
   );
 }
-
-export default HueLightControlPicker;

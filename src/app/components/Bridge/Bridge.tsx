@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-interface HueBridgeProps {
+interface BridgeProps {
    children: React.ReactNode;
  }
 
-export default function HueBridge({ children }: HueBridgeProps) {
+export default function Bridge({ children }: BridgeProps) {
 
    const [error, setError] = useState('');
    const [isReady, setIsReady] = useState(false);

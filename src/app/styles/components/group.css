@@ -1,4 +1,4 @@
-.hue-group {
+.group {
    display:inline-block;
    border:3px solid #ccc;
    padding:1rem;
@@ -7,6 +7,6 @@
    transition: all 0.5s linear;
 }
 
-.hue-group--active {
+.group--active {
    border-color: red;
 }

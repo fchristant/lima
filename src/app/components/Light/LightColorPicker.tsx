@@ -1,16 +1,16 @@
 "use client";
 
-import './huelightcolorpicker.css'
+import '@styles/components/lightcolorpicker.css'
 import { hex2RGB, rgb2CIE } from '@utils/color';
 import { useEffect, useState } from 'react';
 
-interface HueLightColorPickerProps {
+interface LightColorPickerProps {
    light: string;
    currentColor: string;
    enable: boolean;
  }
 
-export default function HueLightColorPicker({ light, currentColor, enable }: HueLightColorPickerProps) {
+export default function LightColorPicker({ light, currentColor, enable }: LightColorPickerProps) {
 
    // track the color picked by the user
    const [pickColor, setPickColor] = useState<number[]>([]);
@@ -22,6 +22,8 @@ export default function HueLightColorPicker({ light, currentColor, enable }: Hue
    // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [pickColor]); 
 
+   const ENDPOINT = `${process.env.NEXT_PUBLIC_HUE_API_ADDRESS}/api/${process.env.NEXT_PUBLIC_HUE_API_USERNAME}/lights/${light}/state`;
+
    async function updateLightColor() {
 
       const bodyData = { 
@@ -29,10 +31,8 @@ export default function HueLightColorPicker({ light, currentColor, enable }: Hue
          xy: [pickColor[0], pickColor[1]]
       };
 
-      const url = `${process.env.NEXT_PUBLIC_HUE_API_ADDRESS}/api/${process.env.NEXT_PUBLIC_HUE_API_USERNAME}/lights/${light}/state`;
-
       try {
-         const response = await fetch(url, {
+         const response = await fetch(ENDPOINT, {
             method: 'PUT', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(bodyData)
@@ -40,12 +40,9 @@ export default function HueLightColorPicker({ light, currentColor, enable }: Hue
          
          const data = await response.json();
 
-         if (data[0]?.error) {
-            console.error('Error:', data[0]?.error?.description);
-         }
-      } catch (error) {
-         console.error('Error:', error);
-      }
+         if (data[0]?.error) { console.error('Error:', data[0]?.error?.description); }
+      } 
+      catch (error) { console.error('Error:', error); }
    }
 
    function changeColor(e: React.ChangeEvent<HTMLInputElement>) {
@@ -58,6 +55,6 @@ export default function HueLightColorPicker({ light, currentColor, enable }: Hue
    }
 
   return (
-   <input type="color" className="hue-light-color-picker" value={ currentColor } onChange={ changeColor} disabled={!enable} />
+   <input type="color" className="light-color-picker" value={ currentColor } onChange={ changeColor} disabled={!enable} />
   )
 }

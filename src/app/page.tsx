@@ -1,10 +1,10 @@
-import HueBridge from "@components/Bridge/HueBridge";
-import HueGroups from "@components/Group/Groups/HueGroups";
+import Bridge from "@components/Bridge/Bridge";
+import Groups from "@components/Group/GroupList";
 
 export default function Home() {
   return (
-   <HueBridge>
-      <HueGroups/>
-   </HueBridge>
+   <Bridge>
+      <Groups/>
+   </Bridge>
   )
 }

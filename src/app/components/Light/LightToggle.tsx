@@ -1,8 +1,8 @@
 "use client";
 
-import './huelighttoggle.css'
+import '@styles/components/lighttoggle.css'
 
-interface HueLightToggleProps {
+interface LightToggleProps {
     light: string;
     on: boolean;
     reachable: boolean;
@@ -10,7 +10,7 @@ interface HueLightToggleProps {
 
 const HUE_API_BASE_URL = `${process.env.NEXT_PUBLIC_HUE_API_ADDRESS}/api/${process.env.NEXT_PUBLIC_HUE_API_USERNAME}/lights`;
 
-export default function HueLightToggle({ light, on, reachable }: HueLightToggleProps) {
+export default function LightToggle({ light, on, reachable }: LightToggleProps) {
 
     async function toggleLight(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
@@ -24,18 +24,13 @@ export default function HueLightToggle({ light, on, reachable }: HueLightToggleP
             });
             const data = await response.json();
 
-            if (data[0]?.error) {
-                console.error('Error:', data[0].error.description);
-                // Consider adding user feedback here.
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            // Consider adding user feedback here.
-        }
+            if (data[0]?.error) { console.error('Error:', data[0].error.description); }
+        } 
+        catch (error) { console.error('Error:', error); }
     }
 
     return (
-        <button className='hue-light-switch' onClick={toggleLight} disabled={!reachable}>
+        <button className='light-toggle' onClick={toggleLight} disabled={!reachable}>
             {on ? 'off' : 'on'}
         </button>
     );

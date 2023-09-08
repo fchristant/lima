@@ -1,5 +1,5 @@
 /* card wrapper for a single light */
-.hue-light {
+.light {
    display:inline-block;
    border:3px solid #ccc;
    padding:1rem;
@@ -9,7 +9,7 @@
 }
 
 /* rendition of the light state */
- .hue-light__spot {
+ .light__spot {
    width: 60px;
    height:60px;
    position: relative;
@@ -23,7 +23,7 @@
 }
 
 /* animation element for when there is an incoming change */
-.hue-light--highlight {
+.light--highlight {
    animation: halo 1s 0s ease-out;
    position: absolute;
    width: 80px;

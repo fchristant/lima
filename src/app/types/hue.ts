@@ -1,4 +1,4 @@
-type Bulb = {
+type HueLight = {
    num: string,
    uniqueid: string,
    name: string
@@ -14,7 +14,7 @@ type Bulb = {
    }
 }
 
-type BulbGroup = {
+type HueGroup = {
    num: string,
    name: string,
    lights: [],
@@ -24,4 +24,4 @@ type BulbGroup = {
    }
 }
 
-export type {Bulb, BulbGroup}
+export type {HueLight, HueGroup}
