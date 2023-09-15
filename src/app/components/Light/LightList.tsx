@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useInterval } from "@hooks/useInterval";
 import { HueLight } from "types/hue";
-import LightItem from "@components/Light/Light";
+import Light from "@components/Light/Light";
+import lightsOrder from "@customize/grouplightorder";
 
 interface LightListProps {
   group?: string[] | null;
+  groupNum: string | null;
 }
 
-export default function LightList({ group }: LightListProps) {
+export default function LightList({ group, groupNum }: LightListProps) {
   const [lights, setLights] = useState<HueLight[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -37,9 +39,17 @@ export default function LightList({ group }: LightListProps) {
     data: Record<string, any>,
     group?: string[]
   ): HueLight[] => {
+    const customOrder = lightsOrder.find((group) => group.groupID === groupNum);
+
     return Object.entries(data)
       .map(([num, lightData]) => ({ ...lightData, num }))
-      .filter((light) => !group || group.includes(light.num));
+      .filter((light) => !group || group.includes(light.num))
+      .sort((a, b) => {
+        return customOrder !== undefined
+          ? customOrder.lights.indexOf(a.num) -
+              customOrder.lights.indexOf(b.num)
+          : a.num - b.num;
+      });
   };
 
   useInterval(() => {
@@ -53,7 +63,7 @@ export default function LightList({ group }: LightListProps) {
       {lights && (
         <div>
           {lights.map((light) => (
-            <LightItem light={light} key={light.num} />
+            <Light light={light} key={light.num} />
           ))}
         </div>
       )}

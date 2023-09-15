@@ -5,6 +5,8 @@ import { HueGroup } from "types/hue";
 import Group from "@components/Group/Group";
 import LightList from "@components/Light/LightList";
 import { useInterval } from "@hooks/useInterval";
+import groupsOrder from "@customize/groupsorder";
+import groupsIgnore from "@customize/groupsignore";
 
 export default function Grouplist() {
   const [groups, setGroups] = useState<HueGroup[] | null>(null);
@@ -35,12 +37,19 @@ export default function Grouplist() {
   };
 
   const normalizeGroupData = (data: Record<string, any>): HueGroup[] => {
-    return Object.entries(data).map(([num, groupData]) => {
-      return {
-        ...groupData,
-        num,
-      };
-    });
+    return Object.entries(data)
+      .filter(([num]) => !groupsIgnore.includes(num))
+      .map(([num, groupData]) => {
+        return {
+          ...groupData,
+          num,
+        };
+      })
+      .sort((a, b) => {
+        const orderA = groupsOrder.indexOf(a.num);
+        const orderB = groupsOrder.indexOf(b.num);
+        return orderA - orderB;
+      });
   };
 
   useInterval(() => {
@@ -75,7 +84,7 @@ export default function Grouplist() {
             activeGroup={activeGroup}
           />
         ))}
-      <LightList group={groupLights} />
+      <LightList group={groupLights} groupNum={activeGroup} />
     </>
   );
 }
