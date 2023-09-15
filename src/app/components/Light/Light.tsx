@@ -1,12 +1,13 @@
 "use client";
 
-import { CSSProperties, memo, useEffect, useRef } from "react";
+import { CSSProperties, memo, useContext, useEffect, useRef } from "react";
 import "@styles/components/light.css";
 import { cie2RGB, mired2Kelvin, kelvin2RGB, rgb2Hex } from "@utils/color";
 import { HueLight } from "types/hue";
 import LightToggle from "@components/Light/LightToggle";
 import LightColorPicker from "@components/Light/LightColorPicker";
 import LightControl from "@components/Light/LightControl";
+import { useRender } from "@components/Page/RenderProvider";
 
 // add custom CSS property type checking
 type MyCustomCSS = CSSProperties & Record<`--${string}`, number | string>;
@@ -25,6 +26,8 @@ const Light = memo(function HueLight({ light }: LightProps) {
   useEffect(() => {
     isRerender.current = true;
   }, []);
+
+  const { renderFull } = useRender();
 
   const { state, name, num } = light;
   const { on, reachable, xy, ct, bri } = state;
@@ -52,48 +55,54 @@ const Light = memo(function HueLight({ light }: LightProps) {
           key={Math.random()}
         ></div>
       </div>
-      <LightToggle light={num} on={on} reachable={reachable} />
-      <LightColorPicker
-        light={num}
-        currentColor={lampColor}
-        enable={xy && isAvailable}
-      />
-      <LightControl
-        light={num}
-        currentValue={ct}
-        enable={!xy && isAvailable}
-        min={153}
-        max={500}
-        attribute="ct"
-        className="hue-light-brightness-picker"
-      />
-      <LightControl
-        light={num}
-        currentValue={bri}
-        enable={isAvailable}
-        min={1}
-        max={254}
-        attribute="bri"
-        className="hue-light-temperature-picker"
-      />
-      <LightControl
-        light={num}
-        currentValue={state.sat}
-        enable={xy && isAvailable}
-        min={0}
-        max={254}
-        attribute="sat"
-        className="hue-light-saturation-picker"
-      />
-      <LightControl
-        light={num}
-        currentValue={state.hue}
-        enable={xy && isAvailable}
-        min={0}
-        max={65535}
-        attribute="hue"
-        className="hue-light-hue-picker"
-      />
+      {renderFull ? (
+        <div className="light__edit">
+          <LightToggle light={num} on={on} reachable={reachable} />
+          <LightColorPicker
+            light={num}
+            currentColor={lampColor}
+            enable={xy && isAvailable}
+          />
+          <LightControl
+            light={num}
+            currentValue={ct}
+            enable={!xy && isAvailable}
+            min={153}
+            max={500}
+            attribute="ct"
+            className="hue-light-brightness-picker"
+          />
+          <LightControl
+            light={num}
+            currentValue={bri}
+            enable={isAvailable}
+            min={1}
+            max={254}
+            attribute="bri"
+            className="hue-light-temperature-picker"
+          />
+          <LightControl
+            light={num}
+            currentValue={state.sat}
+            enable={xy && isAvailable}
+            min={0}
+            max={254}
+            attribute="sat"
+            className="hue-light-saturation-picker"
+          />
+          <LightControl
+            light={num}
+            currentValue={state.hue}
+            enable={xy && isAvailable}
+            min={0}
+            max={65535}
+            attribute="hue"
+            className="hue-light-hue-picker"
+          />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }, didLightStateChange);
