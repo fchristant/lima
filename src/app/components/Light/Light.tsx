@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, memo, useContext, useEffect, useRef } from "react";
+import { CSSProperties, memo, useEffect, useRef } from "react";
 import "@styles/components/light.css";
 import { cie2RGB, mired2Kelvin, kelvin2RGB, rgb2Hex } from "@utils/color";
 import { HueLight } from "types/hue";

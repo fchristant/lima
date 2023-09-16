@@ -24,4 +24,11 @@ type HueGroup = {
   };
 };
 
-export type { HueLight, HueGroup };
+type HueScene = {
+  num: string;
+  name: string;
+  type: string;
+  group: string;
+};
+
+export type { HueLight, HueGroup, HueScene };

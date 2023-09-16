@@ -1,7 +1,7 @@
 "use client";
 
 import Bridge from "@components/Bridge/Bridge";
-import Groups from "@components/Group/GroupList";
+import GroupList from "@components/Group/GroupList";
 import Header from "@components/Page/Header";
 import Footer from "@components/Page/Footer";
 import { RenderProvider } from "@components/Page/RenderProvider";
@@ -12,7 +12,7 @@ export default function Home() {
       <Header />
       <main className="layout-content">
         <Bridge>
-          <Groups />
+          <GroupList />
         </Bridge>
       </main>
       <Footer />

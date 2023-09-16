@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { HueGroup } from "types/hue";
 import Group from "@components/Group/Group";
 import LightList from "@components/Light/LightList";
+import SceneList from "@components/Scene/SceneList";
 import { useInterval } from "@hooks/useInterval";
 import groupsOrder from "@customize/groupsorder";
 import groupsIgnore from "@customize/groupsignore";
@@ -85,6 +86,7 @@ export default function Grouplist() {
           />
         ))}
       <LightList group={groupLights} groupNum={activeGroup} />
+      {activeGroup && <SceneList groupNum={activeGroup} />}
     </>
   );
 }
