@@ -15,7 +15,7 @@ export default function Grouplist() {
   const [error, setError] = useState<string | null>(null);
   const [activeGroup, setActiveGroup] = useState<string | null>(null);
   const [groupLights, setGroupLights] = useState<string[] | null>(null);
-  const pollingInterval = 500;
+  const pollingInterval = 300;
 
   const ENDPOINT = `${process.env.NEXT_PUBLIC_HUE_API_ADDRESS}/api/${process.env.NEXT_PUBLIC_HUE_API_USERNAME}/groups`;
 
@@ -52,6 +52,11 @@ export default function Grouplist() {
         return orderA - orderB;
       });
   };
+
+  useEffect(() => {
+    fetchGroupData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useInterval(() => {
     if (!error) fetchGroupData();

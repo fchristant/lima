@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useInterval } from "@hooks/useInterval";
 import { HueLight } from "types/hue";
 import Light from "@components/Light/Light";
@@ -13,7 +13,7 @@ export default function LightList({ group, groupNum }: LightListProps) {
   const [lights, setLights] = useState<HueLight[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const pollingInterval = 400;
+  const pollingInterval = 100;
 
   const ENDPOINT = `${process.env.NEXT_PUBLIC_HUE_API_ADDRESS}/api/${process.env.NEXT_PUBLIC_HUE_API_USERNAME}/lights`;
 
@@ -51,6 +51,11 @@ export default function LightList({ group, groupNum }: LightListProps) {
           : a.num - b.num;
       });
   };
+
+  useEffect(() => {
+    if (!error) fetchLightData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useInterval(() => {
     if (!error) fetchLightData();
