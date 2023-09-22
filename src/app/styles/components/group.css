@@ -1,14 +1,22 @@
 @layer components {
   .group {
     display: inline-block;
-    border: 3px solid #ccc;
-    padding: 1rem;
+    background: var(--color-neutral-090);
+    border: 2px solid var(--color-neutral-060);
+    color: var(--color-neutral-030);
+    padding: 0.6rem;
     margin: 0.3rem;
     border-radius: 10px;
-    transition: all 0.5s linear;
+    cursor: pointer;
+    &:hover,
+    &:focus {
+      background: var(--color-neutral-080);
+      color: var(--color-neutral-020);
+      outline: none;
+    }
   }
 
   & .active {
-    border-color: red;
+    border-color: var(--color-neutral-030);
   }
 }

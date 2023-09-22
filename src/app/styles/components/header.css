@@ -1,7 +1,6 @@
 @layer components {
   .header {
-    background: #333;
-    color: white;
+    background: var(--color-neutral-090);
     padding: var(--main-padding);
   }
 }

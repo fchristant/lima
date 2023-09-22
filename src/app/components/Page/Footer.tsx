@@ -4,10 +4,8 @@ export default function Footer() {
   return (
     <footer className="footer">
       <p>
-        <small>
-          {process.env.NEXT_PUBLIC_HUE_API_USERNAME}@
-          {process.env.NEXT_PUBLIC_HUE_API_ADDRESS}
-        </small>
+        {process.env.NEXT_PUBLIC_HUE_API_USERNAME}@
+        {process.env.NEXT_PUBLIC_HUE_API_ADDRESS}
       </p>
       <p>
         A project by{" "}

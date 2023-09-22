@@ -1,11 +1,18 @@
 @layer components {
   .scene {
-    background: none;
+    background: var(--color-neutral-090);
+    color: var(--color-neutral-030);
     display: inline-block;
-    border: 2px solid #ccc;
+    border: 2px solid var(--color-neutral-060);
     padding: 0.6rem;
     margin: 0.3rem;
     border-radius: 10px;
-    color: #ccc;
+    cursor: pointer;
+    &:hover,
+    &:focus {
+      background: var(--color-neutral-080);
+      color: var(--color-neutral-020);
+      outline: none;
+    }
   }
 }

@@ -2,8 +2,8 @@
   /* card wrapper for a single light */
   .light {
     display: inline-block;
-    border: 3px solid #ccc;
-    padding: 1rem;
+    border: 3px solid var(--color-neutral-010);
+    padding: 0.6rem;
     margin: 0.3rem;
     border-radius: 10px;
     transition: all 0.5s linear;

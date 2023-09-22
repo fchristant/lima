@@ -1,0 +1,15 @@
+@layer globals {
+  :root {
+    --color-neutral-000: #ffffff;
+    --color-neutral-010: #f1f1f2;
+    --color-neutral-020: #e3e3e3;
+    --color-neutral-030: #c8c8c8;
+    --color-neutral-040: #b5b5b6;
+    --color-neutral-050: #858586;
+    --color-neutral-060: #626264;
+    --color-neutral-070: #464649;
+    --color-neutral-080: #353538;
+    --color-neutral-090: #2c2c2f;
+    --color-neutral-100: #18181b;
+  }
+}
