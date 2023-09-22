@@ -1,61 +1,63 @@
-/* card wrapper for a single light */
-.light {
-  display: inline-block;
-  border: 3px solid #ccc;
-  padding: 1rem;
-  margin: 0.3rem;
-  border-radius: 10px;
-  transition: all 0.5s linear;
-}
+@layer components {
+  /* card wrapper for a single light */
+  .light {
+    display: inline-block;
+    border: 3px solid #ccc;
+    padding: 1rem;
+    margin: 0.3rem;
+    border-radius: 10px;
+    transition: all 0.5s linear;
+  }
 
-/* rendition of the light state */
-.light__spot {
-  width: 60px;
-  height: 60px;
-  position: relative;
-  border-radius: 50%;
-  margin: 3rem;
-  background-color: currentColor;
-  box-shadow: 0 0 40px 16px currentColor;
-  transition:
-    --a 1s,
-    color 0.5s linear;
-  background: conic-gradient(currentColor var(--a), rgba(255, 255, 255, 1));
-  border: 5px solid currentColor;
-}
+  /* rendition of the light state */
+  & .spot {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    border-radius: 50%;
+    margin: 3rem;
+    background-color: currentColor;
+    box-shadow: 0 0 40px 16px currentColor;
+    transition:
+      --a 1s,
+      color 0.5s linear;
+    background: conic-gradient(currentColor var(--a), rgba(255, 255, 255, 1));
+    border: 5px solid currentColor;
+  }
 
-/* animation element for when there is an incoming change */
-.light--highlight {
-  animation: halo 1s 0s ease-out;
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  border: 3px solid transparent;
-  box-shadow: 0 0 1px 2px rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  opacity: 0;
-  top: -15px;
-  left: -15px;
-}
-
-@keyframes halo {
-  0% {
+  /* animation element for when there is an incoming change */
+  .highlight {
+    animation: halo 1s 0s ease-out;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: 3px solid transparent;
+    box-shadow: 0 0 1px 2px rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
     opacity: 0;
-    transform: scale(0.1);
+    top: -15px;
+    left: -15px;
   }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.6);
-  }
-}
 
-/* custom property that controls angle of conic gradient
+  @keyframes halo {
+    0% {
+      opacity: 0;
+      transform: scale(0.1);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.6);
+    }
+  }
+
+  /* custom property that controls angle of conic gradient
  that communicates brightness of light */
-@property --a {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 180deg;
+  @property --a {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 180deg;
+  }
 }

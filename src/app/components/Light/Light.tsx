@@ -49,14 +49,14 @@ const Light = memo(function HueLight({ light }: LightProps) {
   return (
     <div className="light" style={cardStyle}>
       {name} ({light?.num})
-      <div className="light__spot" style={spotStyle}>
+      <div className="spot" style={spotStyle}>
         <div
-          className={isRerender.current ? " light--highlight" : ""}
+          className={isRerender.current ? " highlight" : ""}
           key={Math.random()}
         ></div>
       </div>
       {renderFull ? (
-        <div className="light__edit">
+        <div className="edit">
           <LightToggle light={num} on={on} reachable={reachable} />
           <LightColorPicker
             light={num}
@@ -70,7 +70,7 @@ const Light = memo(function HueLight({ light }: LightProps) {
             min={153}
             max={500}
             attribute="ct"
-            className="hue-light-brightness-picker"
+            className="brightness-picker"
           />
           <LightControl
             light={num}
@@ -79,7 +79,7 @@ const Light = memo(function HueLight({ light }: LightProps) {
             min={1}
             max={254}
             attribute="bri"
-            className="hue-light-temperature-picker"
+            className="temperature-picker"
           />
           <LightControl
             light={num}
@@ -88,7 +88,7 @@ const Light = memo(function HueLight({ light }: LightProps) {
             min={0}
             max={254}
             attribute="sat"
-            className="hue-light-saturation-picker"
+            className="saturation-picker"
           />
           <LightControl
             light={num}
@@ -97,7 +97,7 @@ const Light = memo(function HueLight({ light }: LightProps) {
             min={0}
             max={65535}
             attribute="hue"
-            className="hue-light-hue-picker"
+            className="hue-picker"
           />
         </div>
       ) : (

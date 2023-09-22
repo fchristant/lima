@@ -62,7 +62,7 @@ export default function LightColorPicker({
   return (
     <input
       type="color"
-      className="light-color-picker"
+      className="color-picker"
       value={currentColor}
       onChange={changeColor}
       disabled={!enable}

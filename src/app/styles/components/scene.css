@@ -1,9 +1,11 @@
-.scene {
-  background: none;
-  display: inline-block;
-  border: 2px solid #ccc;
-  padding: 0.6rem;
-  margin: 0.3rem;
-  border-radius: 10px;
-  color: #ccc;
+@layer components {
+  .scene {
+    background: none;
+    display: inline-block;
+    border: 2px solid #ccc;
+    padding: 0.6rem;
+    margin: 0.3rem;
+    border-radius: 10px;
+    color: #ccc;
+  }
 }

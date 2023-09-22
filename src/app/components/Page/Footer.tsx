@@ -2,7 +2,7 @@ import "@styles/components/footer.css";
 
 export default function Footer() {
   return (
-    <footer className="layout-footer">
+    <footer className="footer">
       <p>
         <small>
           {process.env.NEXT_PUBLIC_HUE_API_USERNAME}@

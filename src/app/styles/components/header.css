@@ -1,4 +1,7 @@
-.layout-header {
-  background: #333;
-  color: white;
+@layer components {
+  .header {
+    background: #333;
+    color: white;
+    padding: var(--main-padding);
+  }
 }

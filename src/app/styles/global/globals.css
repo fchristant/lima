@@ -1,4 +1,6 @@
-html {
-  background: #000;
-  color: white;
+@layer globals {
+  html {
+    background: #000;
+    color: white;
+  }
 }

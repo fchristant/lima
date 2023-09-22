@@ -1,3 +1,5 @@
-.light-toggle {
-  border-radius: 50%;
+@layer components {
+  .light-toggle {
+    border-radius: 50%;
+  }
 }

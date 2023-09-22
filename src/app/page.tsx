@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <RenderProvider>
       <Header />
-      <main className="layout-content">
+      <main>
         <Bridge>
           <GroupList />
         </Bridge>

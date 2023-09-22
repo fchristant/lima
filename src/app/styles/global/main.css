@@ -1,0 +1,6 @@
+@layer reset, globals, typography, layout, components;
+
+@import "@styles/global/reset.css";
+@import "@styles/global/globals.css";
+@import "@styles/global/typography.css";
+@import "@styles/global/layout.css";
