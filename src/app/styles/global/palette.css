@@ -1,15 +1,27 @@
 @layer globals {
-  :root {
-    --color-neutral-000: #ffffff;
-    --color-neutral-010: #f1f1f2;
-    --color-neutral-020: #e3e3e3;
-    --color-neutral-030: #c8c8c8;
-    --color-neutral-040: #b5b5b6;
-    --color-neutral-050: #858586;
-    --color-neutral-060: #626264;
-    --color-neutral-070: #464649;
-    --color-neutral-080: #353538;
-    --color-neutral-090: #2c2c2f;
-    --color-neutral-100: #18181b;
+  @layer palette {
+    :root {
+      --color-neutral-000: #ffffff;
+      --color-neutral-010: #f1f1f2;
+      --color-neutral-020: #e3e3e3;
+      --color-neutral-030: #c8c8c8;
+      --color-neutral-040: #b5b5b6;
+      --color-neutral-050: #858586;
+      --color-neutral-060: #626264;
+      --color-neutral-070: #464649;
+      --color-neutral-080: #353538;
+      --color-neutral-090: #2c2c2f;
+      --color-neutral-100: #18181b;
+
+      --color-green-010: #d6e4c2;
+      --color-green-020: #b5cf94;
+      --color-green-030: #97ba6b;
+      --color-green-040: #7da54a;
+      --color-green-050: #4e8126;
+      --color-green-060: #29671a;
+      --color-green-070: #104e11;
+      --color-green-080: #043308;
+      --color-green-090: #021b03;
+    }
   }
 }

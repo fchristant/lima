@@ -3,8 +3,8 @@
   .light {
     display: inline-block;
     border: 3px solid var(--color-neutral-010);
-    padding: 0.6rem;
-    margin: 0.3rem;
+    padding: var(--spacing-xxs) var(--spacing-xs);
+    margin: 0 var(--spacing-xs) var(--spacing-xs) 0;
     border-radius: 10px;
     transition: all 0.5s linear;
   }
@@ -15,7 +15,7 @@
     height: 60px;
     position: relative;
     border-radius: 50%;
-    margin: 3rem;
+    margin: 5rem;
     background-color: currentColor;
     box-shadow: 0 0 40px 16px currentColor;
     transition:

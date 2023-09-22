@@ -4,15 +4,18 @@
     color: var(--color-neutral-030);
     display: inline-block;
     border: 2px solid var(--color-neutral-060);
-    padding: 0.6rem;
-    margin: 0.3rem;
+    padding: var(--spacing-xxs) var(--spacing-xs);
+    margin: 0 var(--spacing-xs) var(--spacing-xs) 0;
     border-radius: 10px;
     cursor: pointer;
-    &:hover,
+    outline: none;
+    &:hover {
+      background: var(--color-neutral-080);
+      color: var(--color-neutral-020);
+    }
     &:focus {
       background: var(--color-neutral-080);
       color: var(--color-neutral-020);
-      outline: none;
     }
   }
 }

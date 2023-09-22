@@ -1,2 +1,5 @@
 @layer typography {
+  html {
+    font-size: 10px;
+  }
 }

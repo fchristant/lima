@@ -1,0 +1,18 @@
+@layer globals {
+  @layer spacing {
+    :root {
+      --spacing-xxxs: 0.44rem;
+      --spacing-xxs: 0.88rem;
+      --spacing-xs: 1.2rem;
+      --spacing-s: 1.6rem;
+      --spacing-sm: 2rem;
+      --spacing-m: 2.4rem;
+      --spacing-ml: 3.2rem;
+      --spacing-l: 4rem;
+      --spacing-xl: 6rem;
+      --spacing-xxl: 8rem;
+      --spacing-xxxl: 10rem;
+      --spacing-xxxxl: 12rem;
+    }
+  }
+}
