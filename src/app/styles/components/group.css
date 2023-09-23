@@ -1,13 +1,20 @@
 @layer components {
   .group {
     display: inline-block;
-    background: var(--color-neutral-090);
-    border: 2px solid var(--color-neutral-060);
-    color: var(--color-neutral-030);
-    padding: var(--spacing-xxs) var(--spacing-s);
-    margin: 0 var(--spacing-xs) var(--spacing-xs) 0;
-    border-radius: 10px;
+    margin: 0 var(--spacing-s) var(--spacing-xs) 0;
+    position: relative;
+  }
+
+  .group-filter {
     cursor: pointer;
+    background: var(--color-neutral-090);
+    color: var(--color-neutral-030);
+    border: 2px solid var(--color-neutral-060);
+    border-radius: 10px;
+    display: inline-block;
+    text-align: left;
+    padding: var(--spacing-xxs) var(--spacing-s);
+    padding-right: 70px;
     outline: none;
     font-weight: 600;
     &:hover {

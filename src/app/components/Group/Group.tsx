@@ -17,11 +17,13 @@ const Group = memo(function Group({
   activeGroup,
 }: GroupProps) {
   return (
-    <>
+    <div className="group">
       {group ? (
         <>
           <button
-            className={`group ${activeGroup === group.num ? "active" : ""}`}
+            className={`group-filter ${
+              activeGroup === group.num ? "active" : ""
+            }`}
             key={group.name}
             onClick={() => onSelectGroup(group.num)}
           >
@@ -31,14 +33,14 @@ const Group = memo(function Group({
         </>
       ) : (
         <button
-          className={`group ${!activeGroup ? "active" : ""}`}
+          className={`group-filter ${!activeGroup ? "active" : ""}`}
           key="all"
           onClick={() => onSelectGroup("")}
         >
           All
         </button>
       )}
-    </>
+    </div>
   );
 }, didGroupStateChange);
 
