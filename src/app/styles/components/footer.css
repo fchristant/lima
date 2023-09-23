@@ -1,13 +1,13 @@
 @layer components {
   .footer {
-    font-style: italic;
     background: var(--color-neutral-090);
     color: var(--color-neutral-030);
-    word-wrap: break-word;
     flex-shrink: 0;
     padding: var(--main-padding);
     & a {
       color: var(--color-neutral-020);
+      text-decoration: none;
+      font-weight: 500;
     }
   }
 }

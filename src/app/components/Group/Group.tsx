@@ -25,7 +25,7 @@ const Group = memo(function Group({
             key={group.name}
             onClick={() => onSelectGroup(group.num)}
           >
-            {group.name} ({group.num})
+            {group.name}
           </button>
           <GroupToggle group={group.num} on={group.state?.any_on} />
         </>

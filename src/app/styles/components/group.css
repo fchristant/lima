@@ -4,11 +4,12 @@
     background: var(--color-neutral-090);
     border: 2px solid var(--color-neutral-060);
     color: var(--color-neutral-030);
-    padding: var(--spacing-xxs) var(--spacing-xs);
+    padding: var(--spacing-xxs) var(--spacing-s);
     margin: 0 var(--spacing-xs) var(--spacing-xs) 0;
     border-radius: 10px;
     cursor: pointer;
     outline: none;
+    font-weight: 600;
     &:hover {
       background: var(--color-neutral-080);
       color: var(--color-neutral-020);
@@ -21,12 +22,12 @@
 
   & .active {
     background: var(--color-green-040);
-    border-color: var(--color-green-050);
+    border-color: var(--color-green-030);
     color: var(--color-neutral-000);
     &:hover,
     &:focus {
       background: var(--color-green-040);
-      border-color: var(--color-green-050);
+      border-color: var(--color-green-030);
       color: var(--color-neutral-000);
     }
   }

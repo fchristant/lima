@@ -59,6 +59,8 @@ const SceneList = memo(function SceneList({ groupNum }: SceneListProps) {
       {isLoading && <p>loading scenes...</p>}
       {scenes && (
         <div>
+          <h2>Scenes</h2>
+
           {scenes.map((scene) => (
             <Scene key={scene.num} scene={scene} />
           ))}

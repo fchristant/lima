@@ -48,7 +48,7 @@ const Light = memo(function HueLight({ light }: LightProps) {
 
   return (
     <div className="light" style={cardStyle}>
-      {name} ({light?.num})
+      {name}
       <div className="spot" style={spotStyle}>
         <div
           className={isRerender.current ? " highlight" : ""}
