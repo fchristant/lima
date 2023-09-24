@@ -58,6 +58,7 @@ const Light = memo(function HueLight({ light }: LightProps) {
       {renderFull ? (
         <div className="edit">
           <LightToggle light={num} on={on} reachable={reachable} />
+          <hr />
           <LightColorPicker
             light={num}
             currentColor={lampColor}

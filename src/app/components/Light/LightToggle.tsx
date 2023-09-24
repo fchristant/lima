@@ -1,6 +1,8 @@
 "use client";
 
 import "@styles/components/lighttoggle.css";
+import Toggle from "react-toggle";
+import "@styles/components/vendor/react-toggle.css";
 
 interface LightToggleProps {
   light: string;
@@ -15,7 +17,7 @@ export default function LightToggle({
   on,
   reachable,
 }: LightToggleProps) {
-  async function toggleLight(e: React.MouseEvent<HTMLButtonElement>) {
+  async function toggleLight(e: { preventDefault: () => void }) {
     e.preventDefault();
     const bodyData = { on: !on };
 
@@ -36,12 +38,12 @@ export default function LightToggle({
   }
 
   return (
-    <button
+    <Toggle
+      checked={on}
+      icons={false}
       className="light-toggle"
-      onClick={toggleLight}
-      disabled={!reachable}
-    >
-      {on ? "off" : "on"}
-    </button>
+      onChange={toggleLight}
+      aria-label="toggle light"
+    />
   );
 }

@@ -6,7 +6,8 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "BlackWhole",
+  title: "Luma",
+  description: "A web app to visualize Philips Hue light bulbs",
 };
 
 export default function RootLayout({
