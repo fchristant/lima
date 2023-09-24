@@ -3,6 +3,7 @@
 import "@styles/components/lighttoggle.css";
 import Toggle from "react-toggle";
 import "@styles/components/vendor/react-toggle.css";
+import { useEffect, useState } from "react";
 
 interface LightToggleProps {
   light: string;
@@ -17,6 +18,12 @@ export default function LightToggle({
   on,
   reachable,
 }: LightToggleProps) {
+  const [onState, setOnState] = useState(on);
+
+  useEffect(() => {
+    setOnState(on);
+  }, [on]);
+
   async function toggleLight(e: { preventDefault: () => void }) {
     e.preventDefault();
     const bodyData = { on: !on };
@@ -31,6 +38,8 @@ export default function LightToggle({
 
       if (data[0]?.error) {
         console.error("Error:", data[0].error.description);
+      } else {
+        setOnState(!on);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -39,7 +48,7 @@ export default function LightToggle({
 
   return (
     <Toggle
-      checked={on}
+      checked={onState}
       icons={false}
       className="light-toggle"
       onChange={toggleLight}

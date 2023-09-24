@@ -3,6 +3,7 @@
 import Toggle from "react-toggle";
 import "@styles/components/vendor/react-toggle.css";
 import "@styles/components/grouptoggle.css";
+import { useEffect, useState } from "react";
 
 interface GroupToggleProps {
   group: string;
@@ -11,6 +12,12 @@ interface GroupToggleProps {
 
 export default function GroupToggle({ group, on }: GroupToggleProps) {
   const ENDPOINT = `${process.env.NEXT_PUBLIC_HUE_API_ADDRESS}/api/${process.env.NEXT_PUBLIC_HUE_API_USERNAME}/groups/${group}/action`;
+
+  const [onState, setOnState] = useState(on);
+
+  useEffect(() => {
+    setOnState(on);
+  }, [on]);
 
   async function toggleGroup(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -26,6 +33,8 @@ export default function GroupToggle({ group, on }: GroupToggleProps) {
 
       if (data[0]?.error) {
         console.error("Error:", data[0].error.description);
+      } else {
+        setOnState(!on);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -35,7 +44,7 @@ export default function GroupToggle({ group, on }: GroupToggleProps) {
   return (
     <label>
       <Toggle
-        checked={on}
+        checked={onState}
         icons={false}
         className="group-toggle"
         onChange={toggleGroup}
