@@ -1,6 +1,21 @@
 @layer components {
   .header {
+    display: flex;
+    align-items: center;
     background: var(--color-neutral-090);
     padding: var(--main-padding);
+  }
+  .header-wrapper {
+    vertical-align: middle;
+    display: inline-flex;
+    flex-direction: column;
+  }
+  .header-logo {
+    line-height: 1.1;
+  }
+  .header-slogan {
+    font-size: 1.4rem;
+    color: var(--color-neutral-030);
+    line-height: 1;
   }
 }

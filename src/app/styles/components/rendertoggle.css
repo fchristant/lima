@@ -1,0 +1,12 @@
+@layer components {
+  .render-toggle {
+    margin-left: auto;
+    cursor: pointer;
+    background: var(--color-neutral-000);
+    color: var(--color-neutral-090);
+    border: 2px solid var(--color-neutral-060);
+    border-radius: 10px;
+    padding: var(--spacing-xxxs) var(--spacing-xs);
+    font-weight: 600;
+  }
+}
