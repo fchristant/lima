@@ -38,4 +38,8 @@
       color: var(--color-neutral-000);
     }
   }
+
+  .group-filter--all {
+    padding-right: var(--spacing-s) !important;
+  }
 }

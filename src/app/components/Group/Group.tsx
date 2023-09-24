@@ -33,7 +33,9 @@ const Group = memo(function Group({
         </>
       ) : (
         <button
-          className={`group-filter ${!activeGroup ? "active" : ""}`}
+          className={`group-filter group-filter--all ${
+            !activeGroup ? "active" : ""
+          }`}
           key="all"
           onClick={() => onSelectGroup("")}
         >

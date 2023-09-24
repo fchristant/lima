@@ -1,7 +1,7 @@
 "use client";
 
 import Toggle from "react-toggle";
-import "react-toggle/style.css";
+import "@styles/components/vendor/react-toggle.css";
 import "@styles/components/grouptoggle.css";
 
 interface GroupToggleProps {
