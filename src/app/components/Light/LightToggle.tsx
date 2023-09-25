@@ -26,7 +26,7 @@ export default function LightToggle({
 
   async function toggleLight(e: { preventDefault: () => void }) {
     e.preventDefault();
-    const bodyData = { on: !on };
+    const bodyData = { on: !onState };
 
     try {
       const response = await fetch(`${HUE_API_BASE_URL}/${light}/state`, {
@@ -39,7 +39,7 @@ export default function LightToggle({
       if (data[0]?.error) {
         console.error("Error:", data[0].error.description);
       } else {
-        setOnState(!on);
+        setOnState(!onState);
       }
     } catch (error) {
       console.error("Error:", error);

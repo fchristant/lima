@@ -13,7 +13,7 @@ export default function LightList({ group, groupNum }: LightListProps) {
   const [lights, setLights] = useState<HueLight[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const pollingInterval = 300;
+  const pollingInterval = 1000;
 
   const ENDPOINT = `${process.env.NEXT_PUBLIC_HUE_API_ADDRESS}/api/${process.env.NEXT_PUBLIC_HUE_API_USERNAME}/lights`;
 

@@ -21,7 +21,7 @@ export default function GroupToggle({ group, on }: GroupToggleProps) {
 
   async function toggleGroup(e: { preventDefault: () => void }) {
     e.preventDefault();
-    const bodyData = { on: !on };
+    const bodyData = { on: !onState };
     try {
       const response = await fetch(ENDPOINT, {
         method: "PUT",
@@ -34,7 +34,7 @@ export default function GroupToggle({ group, on }: GroupToggleProps) {
       if (data[0]?.error) {
         console.error("Error:", data[0].error.description);
       } else {
-        setOnState(!on);
+        setOnState(!onState);
       }
     } catch (error) {
       console.error("Error:", error);
