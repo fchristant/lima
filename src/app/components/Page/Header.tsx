@@ -5,8 +5,10 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header-wrapper">
-        <h1 className="header-logo">Lima</h1>
-        <span className="header-slogan">Light manager</span>
+        <h1 className="header-logo">
+          <i>L</i>I<i>M</i>A
+        </h1>
+        <span className="header-slogan">light manager</span>
       </div>
       <RenderToggle />
     </header>

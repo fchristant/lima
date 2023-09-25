@@ -4,6 +4,7 @@
     align-items: center;
     background: var(--color-neutral-090);
     padding: var(--main-padding);
+    border-bottom: 1px solid var(--color-neutral-070);
   }
   .header-wrapper {
     vertical-align: middle;
@@ -17,5 +18,7 @@
     font-size: 1.4rem;
     color: var(--color-neutral-030);
     line-height: 1;
+    font-variant: small-caps;
+    font-weight: 600;
   }
 }
