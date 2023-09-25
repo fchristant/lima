@@ -15,7 +15,7 @@ export default function Grouplist() {
   const [error, setError] = useState<string | null>(null);
   const [activeGroup, setActiveGroup] = useState<string | null>(null);
   const [groupLights, setGroupLights] = useState<string[] | null>(null);
-  const pollingInterval = 10000;
+  const pollingInterval = 1000;
 
   const ENDPOINT = `${process.env.NEXT_PUBLIC_HUE_API_ADDRESS}/api/${process.env.NEXT_PUBLIC_HUE_API_USERNAME}/groups`;
 

@@ -13,7 +13,7 @@ export default function LightList({ group, groupNum }: LightListProps) {
   const [lights, setLights] = useState<HueLight[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const pollingInterval = 1000;
+  const pollingInterval = 300;
 
   const ENDPOINT = `${process.env.NEXT_PUBLIC_HUE_API_ADDRESS}/api/${process.env.NEXT_PUBLIC_HUE_API_USERNAME}/lights`;
 
@@ -56,6 +56,11 @@ export default function LightList({ group, groupNum }: LightListProps) {
     if (!error) fetchLightData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (!error) fetchLightData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [group]);
 
   useInterval(() => {
     if (!error) fetchLightData();
