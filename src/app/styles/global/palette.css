@@ -22,6 +22,9 @@
       --color-green-070: #104e11;
       --color-green-080: #043308;
       --color-green-090: #021b03;
+
+      --color-focused: #03a9f4;
+      --color-light-on: #8bc34a;
     }
   }
 }

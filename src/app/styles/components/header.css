@@ -16,6 +16,15 @@
     display: inline-flex;
     flex-direction: column;
   }
+  .header-link {
+    text-decoration: none;
+    transition: all 0.2s linear;
+    line-height: 1.1;
+    color: var(--color-neutral-010);
+    &:hover {
+      color: var(--color-neutral-000);
+    }
+  }
   .header-logo {
     line-height: 1.1;
   }

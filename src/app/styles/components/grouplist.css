@@ -1,9 +1,9 @@
 @layer components {
   .group-list {
     display: flex;
-    background: var(--color-green-040);
+    background: var(--color-neutral-090);
 
-    border-bottom: 3px solid var(--color-green-030);
+    border-bottom: 1px solid var(--color-neutral-070);
     max-height: 30rem;
     flex-wrap: wrap;
     overflow-y: scroll;

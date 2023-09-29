@@ -17,7 +17,7 @@ const Group = memo(function Group({
   activeGroup,
 }: GroupProps) {
   return (
-    <div className="group">
+    <div className={`group ${group?.state?.any_on ? " on" : ""}`}>
       {group ? (
         <>
           <button

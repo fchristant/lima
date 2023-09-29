@@ -19,40 +19,36 @@
 
   .group-filter {
     cursor: pointer;
+    transition: all 0.2s linear;
     width: 100%;
     background: var(--color-neutral-090);
-    color: var(--color-neutral-050);
-    border: 2px solid var(--color-neutral-060);
+    color: var(--color-neutral-020);
+    border: 2px solid var(--color-neutral-050);
     border-radius: 10px;
     display: inline-block;
+    outline: none;
     text-align: left;
     padding: var(--spacing-xxs) var(--spacing-s);
     padding-right: 70px;
-    outline: none;
     font-weight: 600;
     &:hover {
-      background: var(--color-neutral-080);
-      color: var(--color-neutral-020);
+      color: var(--color-neutral-000);
     }
-    &:focus {
-      background: var(--color-neutral-080);
+    &:focus-visible {
       color: var(--color-neutral-020);
+      border-color: var(--color-focused);
     }
-  }
-
-  & .on {
-    border-color: var(--color-neutral-000);
-    color: var(--color-neutral-000);
   }
 
   & .active {
     background: var(--color-green-040);
     border-color: var(--color-green-030);
     color: var(--color-neutral-000);
-    &:hover,
-    &:focus {
-      background: var(--color-green-040);
-      border-color: var(--color-green-030);
+    &:hover {
+      color: var(--color-neutral-000);
+    }
+    &:focus-visible {
+      border-color: var(--color-focused);
       color: var(--color-neutral-000);
     }
   }
