@@ -1,6 +1,7 @@
 import { memo, useEffect, useState } from "react";
 import { HueScene } from "types/hue";
 import Scene from "@components/Scene/Scene";
+import "@styles/components/scenelist.css";
 
 interface SceneListProps {
   groupNum: string | null;
@@ -54,7 +55,7 @@ const SceneList = memo(function SceneList({ groupNum }: SceneListProps) {
   }, [groupNum, isLoading]);
 
   return (
-    <>
+    <div className="scene-list">
       {error && <p>{error}</p>}
       {isLoading && <p>loading scenes...</p>}
       {scenes && (
@@ -66,7 +67,7 @@ const SceneList = memo(function SceneList({ groupNum }: SceneListProps) {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 });
 

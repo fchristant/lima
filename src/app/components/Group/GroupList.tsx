@@ -8,6 +8,7 @@ import SceneList from "@components/Scene/SceneList";
 import { useInterval } from "@hooks/useInterval";
 import groupsOrder from "@customize/groupsorder";
 import groupsIgnore from "@customize/groupsignore";
+import "@styles/components/grouplist.css";
 
 export default function Grouplist() {
   const [groups, setGroups] = useState<HueGroup[] | null>(null);
@@ -73,23 +74,25 @@ export default function Grouplist() {
 
   return (
     <>
-      {error && <p>{error}</p>}
-      {isLoading && <p>loading groups...</p>}
-      <Group
-        key="all"
-        onSelectGroup={setActiveGroup}
-        group={null}
-        activeGroup={activeGroup}
-      />
-      {groups &&
-        groups.map((group) => (
-          <Group
-            group={group}
-            key={group.num}
-            onSelectGroup={setActiveGroup}
-            activeGroup={activeGroup}
-          />
-        ))}
+      <div className="group-list">
+        {error && <p>{error}</p>}
+        {isLoading && <p>loading groups...</p>}
+        <Group
+          key="all"
+          onSelectGroup={setActiveGroup}
+          group={null}
+          activeGroup={activeGroup}
+        />
+        {groups &&
+          groups.map((group) => (
+            <Group
+              group={group}
+              key={group.num}
+              onSelectGroup={setActiveGroup}
+              activeGroup={activeGroup}
+            />
+          ))}
+      </div>
       <LightList group={groupLights} groupNum={activeGroup} />
       {activeGroup && <SceneList groupNum={activeGroup} />}
     </>

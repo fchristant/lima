@@ -1,0 +1,17 @@
+@layer globals {
+  @layer breakpoints {
+    :root {
+      --breakpoint-xs-min: 0;
+      --breakpoint-xs-max: 449px;
+      --breakpoint-s-min: 450px;
+      --breakpoint-s-max: 767px;
+      --breakpoint-m-min: 768px;
+      --breakpoint-m-max: 1023px;
+      --breakpoint-l-min: 1024px;
+      --breakpoint-l-max: 1365px;
+      --breakpoint-xl-min: 1366px;
+      --breakpoint-xl-max: 1599px;
+      --breakpoint-xxl-min: 1600px;
+    }
+  }
+}

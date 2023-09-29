@@ -3,6 +3,7 @@ import { useInterval } from "@hooks/useInterval";
 import { HueLight } from "types/hue";
 import Light from "@components/Light/Light";
 import lightsOrder from "@customize/grouplightorder";
+import "@styles/components/lightlist.css";
 
 interface LightListProps {
   group?: string[] | null;
@@ -71,7 +72,7 @@ export default function LightList({ group, groupNum }: LightListProps) {
       {error && <p>{error}</p>}
       {isLoading && <p>loading lights...</p>}
       {lights && (
-        <div>
+        <div className="light-list">
           {lights.map((light) => (
             <Light light={light} key={light.num} />
           ))}

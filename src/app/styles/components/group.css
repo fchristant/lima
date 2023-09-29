@@ -1,14 +1,27 @@
 @layer components {
   .group {
-    display: inline-block;
-    margin: 0 var(--spacing-s) var(--spacing-xs) 0;
+    margin: 0;
     position: relative;
+    width: 100%;
+  }
+
+  @media only screen and (min-width: 450px) and (max-width: 767px) {
+    .group {
+      width: calc(50% - ((1 / 2) * var(--main-padding-mobile)));
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .group {
+      width: auto;
+    }
   }
 
   .group-filter {
     cursor: pointer;
+    width: 100%;
     background: var(--color-neutral-090);
-    color: var(--color-neutral-030);
+    color: var(--color-neutral-050);
     border: 2px solid var(--color-neutral-060);
     border-radius: 10px;
     display: inline-block;
@@ -25,6 +38,11 @@
       background: var(--color-neutral-080);
       color: var(--color-neutral-020);
     }
+  }
+
+  & .on {
+    border-color: var(--color-neutral-000);
+    color: var(--color-neutral-000);
   }
 
   & .active {

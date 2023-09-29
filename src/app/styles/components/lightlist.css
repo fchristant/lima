@@ -1,0 +1,13 @@
+@layer components {
+  .light-list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: var(--main-padding);
+  }
+
+  @media only screen and (max-width: 767px) {
+    .light-list {
+      padding: var(--main-padding-mobile);
+    }
+  }
+}

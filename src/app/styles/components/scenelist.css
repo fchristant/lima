@@ -1,0 +1,11 @@
+@layer components {
+  .scene-list {
+    padding: var(--main-padding);
+  }
+
+  @media only screen and (max-width: 767px) {
+    .scene-list {
+      padding: var(--main-padding-mobile);
+    }
+  }
+}

@@ -10,4 +10,9 @@
       font-weight: 500;
     }
   }
+  @media only screen and (max-width: 767px) {
+    .footer {
+      padding: var(--main-padding-mobile);
+    }
+  }
 }

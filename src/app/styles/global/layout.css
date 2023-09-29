@@ -1,6 +1,7 @@
 @layer layout {
   :root {
     --main-padding: var(--spacing-s);
+    --main-padding-mobile: var(--spacing-xs);
   }
 
   html,
@@ -16,6 +17,5 @@
 
   main {
     flex: 1 0 auto;
-    padding: var(--main-padding);
   }
 }

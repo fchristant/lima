@@ -1,0 +1,27 @@
+@layer components {
+  .group-list {
+    display: flex;
+    background: var(--color-green-040);
+
+    border-bottom: 3px solid var(--color-green-030);
+    max-height: 30rem;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    padding: var(--main-padding);
+    gap: var(--main-padding-mobile);
+  }
+
+  @media only screen and (max-width: 767px) {
+    .group-list {
+      padding: var(--main-padding-mobile);
+      gap: var(--main-padding-mobile);
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .group-list {
+      max-height: none;
+      overflow-y: auto;
+    }
+  }
+}

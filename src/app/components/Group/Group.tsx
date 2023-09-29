@@ -21,8 +21,9 @@ const Group = memo(function Group({
       {group ? (
         <>
           <button
-            className={`group-filter ${
-              activeGroup === group.num ? "active" : ""
+            className={`group-filter 
+            ${activeGroup === group.num ? " active" : ""}${
+              group.state?.any_on ? " on" : ""
             }`}
             key={group.name}
             onClick={() => onSelectGroup(group.num)}
@@ -39,7 +40,7 @@ const Group = memo(function Group({
           key="all"
           onClick={() => onSelectGroup("")}
         >
-          All
+          All lights
         </button>
       )}
     </div>
