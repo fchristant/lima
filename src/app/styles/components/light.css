@@ -1,23 +1,30 @@
 @layer components {
   /* card wrapper for a single light */
   .light {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     border: 3px solid var(--color-neutral-010);
-    padding: var(--spacing-xxs) var(--spacing-xs);
     margin: 0 var(--spacing-xs) var(--spacing-xs) 0;
     border-radius: 10px;
     transition: all 0.5s linear;
   }
 
+  .light-name {
+    text-align: center;
+    margin-bottom: var(--spacing-m);
+    padding: var(--spacing-xxs) var(--spacing-xs);
+  }
+
   /* rendition of the light state */
-  & .spot {
+  .light-spot {
     width: 60px;
     height: 60px;
     position: relative;
     border-radius: 50%;
-    margin: 5rem;
+    margin: 0 auto;
+    margin-bottom: var(--spacing-l);
     background-color: currentColor;
-    box-shadow: 0 0 40px 16px currentColor;
+    box-shadow: 0 0 30px 16px currentColor;
     transition:
       --a 1s,
       color 0.5s linear;
@@ -26,17 +33,38 @@
   }
 
   /* animation element for when there is an incoming change */
-  .highlight {
+  .light-highlight {
     animation: halo 1s 0s ease-out;
     position: absolute;
-    width: 80px;
-    height: 80px;
+    width: 120%;
+    height: 120%;
+    left: -10%;
+    top: -10%;
     border: 3px solid transparent;
     box-shadow: 0 0 1px 2px rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     opacity: 0;
-    top: -15px;
-    left: -15px;
+  }
+
+  .light-toggle-wrapper {
+    padding: var(--spacing-xxs) var(--spacing-xs);
+    text-align: center;
+  }
+
+  .light-bri-wrapper {
+    padding: var(--spacing-xxs) var(--spacing-xs);
+  }
+
+  .light-edit {
+    background: var(--color-neutral-090);
+    padding: var(--spacing-xxs) var(--spacing-xs);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  .light-colorpicker-wrapper {
+    padding: var(--spacing-xxs) var(--spacing-xs);
+    text-align: center;
   }
 
   @keyframes halo {

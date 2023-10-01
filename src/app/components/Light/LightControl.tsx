@@ -59,7 +59,6 @@ export default function LightControl({
 
   return (
     <div>
-      {attribute}
       <input
         type="range"
         className={className}

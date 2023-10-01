@@ -180,6 +180,13 @@ function calculateSceneLampColor(state: any) {
   return "#333333";
 }
 
+function calculateBrightnessDegree(bri: number, isAvailable: boolean) {
+  if (!isAvailable || bri === 0) {
+    return 1;
+  }
+  return Math.max(10, Math.round((360 / 255) * bri));
+}
+
 export {
   cie2RGB,
   rgb2CIE,
@@ -189,4 +196,5 @@ export {
   hex2RGB,
   calculateLampColor,
   calculateSceneLampColor,
+  calculateBrightnessDegree,
 };

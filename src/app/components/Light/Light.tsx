@@ -2,7 +2,7 @@
 
 import { CSSProperties, memo, useEffect, useRef } from "react";
 import "@styles/components/light.css";
-import { calculateLampColor } from "@utils/color";
+import { calculateBrightnessDegree, calculateLampColor } from "@utils/color";
 import { HueLight } from "types/hue";
 import LightToggle from "@components/Light/LightToggle";
 import LightColorPicker from "@components/Light/LightColorPicker";
@@ -48,22 +48,36 @@ const Light = memo(function HueLight({ light }: LightProps) {
 
   return (
     <div className="light" style={cardStyle}>
-      {name}
-      <div className="spot" style={spotStyle}>
+      <div className="light-name">{name}</div>
+      <div className="light-spot" style={spotStyle}>
         <div
-          className={isRerender.current ? " highlight" : ""}
+          className={isRerender.current ? " light-highlight" : ""}
           key={Math.random()}
         ></div>
       </div>
+      <div className="light-toggle-wrapper">
+        <LightToggle light={num} on={on} reachable={reachable} />
+      </div>
+      <div className="light-bri-wrapper">
+        <LightControl
+          light={num}
+          currentValue={bri}
+          enable={isAvailable}
+          min={1}
+          max={254}
+          attribute="bri"
+          className="brightness-picker"
+        />
+      </div>
       {renderFull ? (
-        <div className="edit">
-          <LightToggle light={num} on={on} reachable={reachable} />
-          <hr />
-          <LightColorPicker
-            light={num}
-            currentColor={lampColor}
-            enable={xy && isAvailable}
-          />
+        <div className="light-edit">
+          <div className="light-colorpicker-wrapper">
+            <LightColorPicker
+              light={num}
+              currentColor={lampColor}
+              enable={xy && isAvailable}
+            />
+          </div>
           <LightControl
             light={num}
             currentValue={ct}
@@ -71,17 +85,9 @@ const Light = memo(function HueLight({ light }: LightProps) {
             min={153}
             max={500}
             attribute="ct"
-            className="brightness-picker"
-          />
-          <LightControl
-            light={num}
-            currentValue={bri}
-            enable={isAvailable}
-            min={1}
-            max={254}
-            attribute="bri"
             className="temperature-picker"
           />
+
           <LightControl
             light={num}
             currentValue={state.sat}
@@ -110,13 +116,6 @@ const Light = memo(function HueLight({ light }: LightProps) {
 
 function didLightStateChange(prevProps: any, nextProps: any) {
   return JSON.stringify(prevProps) === JSON.stringify(nextProps);
-}
-
-function calculateBrightnessDegree(bri: number, isAvailable: boolean) {
-  if (!isAvailable || bri === 0) {
-    return 1;
-  }
-  return Math.max(10, Math.round((360 / 255) * bri));
 }
 
 export default Light;
