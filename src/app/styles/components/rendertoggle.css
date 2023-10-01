@@ -1,12 +1,35 @@
 @layer components {
   .render-toggle {
     margin-left: auto;
-    cursor: pointer;
-    background: var(--color-neutral-000);
-    color: var(--color-neutral-090);
-    border: 2px solid var(--color-neutral-060);
+    background: var(--color-neutral-070);
     border-radius: 10px;
+  }
+  .render-toggle-button {
+    cursor: pointer;
     padding: var(--spacing-xxxs) var(--spacing-xs);
+    background: none;
+    border: 0;
     font-weight: 600;
+    width: 10rem;
+    color: var(--color-neutral-030);
+    border: 2px solid var(--color-neutral-060);
+    outline: 0;
+    &.left {
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      border-right: 0;
+    }
+    &.right {
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      border-left: 0;
+    }
+    &:focus-visible {
+      color: var(--color-green-000);
+    }
+  }
+  .toggle-active {
+    background: var(--color-green-040);
+    color: var(--color-neutral-000);
   }
 }

@@ -1,9 +1,10 @@
 import { createContext, useContext, useState } from "react";
 
-//const RenderContext = createContext();
 const RenderContext = createContext({
   renderFull: true,
   toggleRenderMode: () => {},
+  setFullMode: () => {},
+  setCompactMode: () => {},
 });
 
 interface RenderProviderProps {
@@ -13,9 +14,13 @@ interface RenderProviderProps {
 const RenderProvider = ({ children }: RenderProviderProps) => {
   const [renderFull, setRenderFull] = useState(true);
   const toggleRenderMode = () => setRenderFull(!renderFull);
+  const setFullMode = () => setRenderFull(true);
+  const setCompactMode = () => setRenderFull(false);
 
   return (
-    <RenderContext.Provider value={{ renderFull, toggleRenderMode }}>
+    <RenderContext.Provider
+      value={{ renderFull, toggleRenderMode, setFullMode, setCompactMode }}
+    >
       {children}
     </RenderContext.Provider>
   );

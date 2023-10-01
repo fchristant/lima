@@ -4,6 +4,8 @@
     color: var(--color-neutral-030);
     flex-shrink: 0;
     padding: var(--main-padding);
+    display: flex;
+    justify-content: space-between;
     & a {
       color: var(--color-neutral-020);
       text-decoration: none;
