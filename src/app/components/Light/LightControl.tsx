@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import throttle from "lodash.throttle";
+import "@styles/components/lightcontrol.css";
+import { mired2Kelvin } from "@utils/color";
 
 interface LightControlProps {
   light: string;
@@ -10,6 +12,7 @@ interface LightControlProps {
   min: number;
   max: number;
   attribute: "hue" | "sat" | "ct" | "bri";
+  label?: "Temperature" | "Hue" | "Brightness" | "Saturation";
   className: string;
 }
 
@@ -23,12 +26,21 @@ export default function LightControl({
   max,
   attribute,
   className,
+  label,
 }: LightControlProps) {
   const [pickedValue, setPickedValue] = useState(currentValue);
+  const [displayValue, setDisplayValue] = useState(
+    calculateDisplayValue(pickedValue)
+  );
 
   useEffect(() => {
     setPickedValue(currentValue);
   }, [currentValue]);
+
+  useEffect(() => {
+    setDisplayValue(calculateDisplayValue(pickedValue));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pickedValue]);
 
   async function updateLight(value: number) {
     const bodyData = { [attribute]: value };
@@ -49,6 +61,26 @@ export default function LightControl({
     }
   }
 
+  function calculateDisplayValue(rawValue: number) {
+    if (rawValue === undefined) {
+      return "";
+    }
+
+    if (attribute === "bri") {
+      return Math.round((rawValue / 255) * 100) + "%";
+    }
+
+    if (attribute === "sat" && typeof rawValue !== undefined) {
+      return Math.round((rawValue / 255) * 100) + "%";
+    }
+
+    if (attribute === "ct") {
+      return mired2Kelvin(rawValue) + "K";
+    }
+
+    return rawValue;
+  }
+
   const makeApiRequestThrottled = useRef(throttle(updateLight, 100));
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +90,11 @@ export default function LightControl({
   };
 
   return (
-    <div>
+    <>
+      <div className="light-control-details">
+        {label ? <label className="light-control-label">{label}</label> : ""}
+        <div className="light-control-value">{displayValue}</div>
+      </div>
       <input
         type="range"
         className={className}
@@ -68,6 +104,6 @@ export default function LightControl({
         onChange={handleChange}
         disabled={!enable}
       />
-    </div>
+    </>
   );
 }

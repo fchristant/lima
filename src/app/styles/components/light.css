@@ -3,7 +3,7 @@
   .light {
     display: flex;
     flex-direction: column;
-    border: 3px solid var(--color-neutral-010);
+    border: 2px solid var(--color-neutral-010);
     margin: 0 var(--spacing-xs) var(--spacing-xs) 0;
     border-radius: 10px;
     transition: all 0.5s linear;
@@ -52,19 +52,39 @@
   }
 
   .light-bri-wrapper {
-    padding: var(--spacing-xxs) var(--spacing-xs);
+    padding: var(--spacing-xxs) 0;
+    border-bottom: 1px solid var(--color-neutral-070);
   }
 
   .light-edit {
-    background: var(--color-neutral-090);
+    background: linear-gradient(
+      to bottom,
+      var(--color-neutral-090),
+      var(--color-neutral-100)
+    );
     padding: var(--spacing-xxs) var(--spacing-xs);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
   }
 
   .light-colorpicker-wrapper {
-    padding: var(--spacing-xxs) var(--spacing-xs);
+    padding: var(--spacing-xs) 0;
     text-align: center;
+    border-bottom: 1px solid var(--color-neutral-070);
+  }
+
+  .light-temperature-wrapper {
+    padding: var(--spacing-xxs) 0;
+    border-bottom: 1px solid var(--color-neutral-070);
+  }
+
+  .light-saturation-wrapper {
+    padding: var(--spacing-xxs) 0;
+    border-bottom: 1px solid var(--color-neutral-070);
+  }
+
+  .light-hue-wrapper {
+    padding-top: var(--spacing-xxs);
   }
 
   @keyframes halo {

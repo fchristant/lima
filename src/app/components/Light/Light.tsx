@@ -58,17 +58,7 @@ const Light = memo(function HueLight({ light }: LightProps) {
       <div className="light-toggle-wrapper">
         <LightToggle light={num} on={on} reachable={reachable} />
       </div>
-      <div className="light-bri-wrapper">
-        <LightControl
-          light={num}
-          currentValue={bri}
-          enable={isAvailable}
-          min={1}
-          max={254}
-          attribute="bri"
-          className="brightness-picker"
-        />
-      </div>
+
       {renderFull ? (
         <div className="light-edit">
           <div className="light-colorpicker-wrapper">
@@ -78,34 +68,55 @@ const Light = memo(function HueLight({ light }: LightProps) {
               enable={xy && isAvailable}
             />
           </div>
-          <LightControl
-            light={num}
-            currentValue={ct}
-            enable={!xy && isAvailable}
-            min={153}
-            max={500}
-            attribute="ct"
-            className="temperature-picker"
-          />
+          <div className="light-bri-wrapper">
+            <LightControl
+              light={num}
+              currentValue={bri}
+              enable={isAvailable}
+              min={0}
+              max={254}
+              attribute="bri"
+              className="light-control brightness-picker"
+              label="Brightness"
+            />
+          </div>
+          <div className="light-temperature-wrapper">
+            <LightControl
+              light={num}
+              currentValue={ct}
+              enable={!xy && isAvailable}
+              min={153}
+              max={500}
+              attribute="ct"
+              className="light-control temperature-picker"
+              label="Temperature"
+            />
+          </div>
 
-          <LightControl
-            light={num}
-            currentValue={state.sat}
-            enable={xy && isAvailable}
-            min={0}
-            max={254}
-            attribute="sat"
-            className="saturation-picker"
-          />
-          <LightControl
-            light={num}
-            currentValue={state.hue}
-            enable={xy && isAvailable}
-            min={0}
-            max={65535}
-            attribute="hue"
-            className="hue-picker"
-          />
+          <div className="light-saturation-wrapper">
+            <LightControl
+              light={num}
+              currentValue={state.sat}
+              enable={xy && isAvailable}
+              min={0}
+              max={254}
+              attribute="sat"
+              className="light-control saturation-picker"
+              label="Saturation"
+            />
+          </div>
+          <div className="light-hue-wrapper">
+            <LightControl
+              light={num}
+              currentValue={state.hue}
+              enable={xy && isAvailable}
+              min={0}
+              max={65535}
+              attribute="hue"
+              className="light-control hue-picker"
+              label="Hue"
+            />
+          </div>
         </div>
       ) : (
         ""

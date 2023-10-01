@@ -1,0 +1,17 @@
+@layer components {
+  .light-control {
+    display: block;
+  }
+  .light-control-details {
+    display: flex;
+    font-size: 1.2rem;
+    justify-content: space-between;
+  }
+  .light-control-label {
+    color: var(--color-neutral-020);
+    font-size: 1.2rem;
+  }
+  .light-control-value {
+    color: var(--color-neutral-000);
+  }
+}
