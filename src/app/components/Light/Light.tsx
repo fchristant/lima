@@ -2,7 +2,7 @@
 
 import { CSSProperties, memo, useEffect, useRef } from "react";
 import "@styles/components/light.css";
-import { cie2RGB, mired2Kelvin, kelvin2RGB, rgb2Hex } from "@utils/color";
+import { calculateLampColor } from "@utils/color";
 import { HueLight } from "types/hue";
 import LightToggle from "@components/Light/LightToggle";
 import LightColorPicker from "@components/Light/LightColorPicker";
@@ -110,27 +110,6 @@ const Light = memo(function HueLight({ light }: LightProps) {
 
 function didLightStateChange(prevProps: any, nextProps: any) {
   return JSON.stringify(prevProps) === JSON.stringify(nextProps);
-}
-
-function calculateLampColor(state: any) {
-  const { on, reachable, xy, ct, colormode, bri } = state;
-
-  if (!on || !reachable || bri === 0) {
-    return "#333333";
-  }
-
-  if (colormode === "ct" && !xy) {
-    const lampKelvin = mired2Kelvin(ct);
-    const kRGB = kelvin2RGB(lampKelvin);
-    return rgb2Hex(kRGB[0], kRGB[1], kRGB[2]);
-  }
-
-  if (xy && bri) {
-    const lampColorRGB = cie2RGB(xy[0], xy[1], bri);
-    return rgb2Hex(lampColorRGB.r, lampColorRGB.g, lampColorRGB.b);
-  }
-
-  return "#333333";
 }
 
 function calculateBrightnessDegree(bri: number, isAvailable: boolean) {

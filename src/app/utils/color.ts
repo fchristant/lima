@@ -144,4 +144,49 @@ function hex2RGB(hex: string) {
   return [r, g, b];
 }
 
-export { cie2RGB, rgb2CIE, mired2Kelvin, kelvin2RGB, rgb2Hex, hex2RGB };
+function calculateLampColor(state: any) {
+  const { on, reachable, xy, ct, colormode, bri } = state;
+
+  if (!on || !reachable || bri === 0) {
+    return "#333333";
+  }
+
+  if (colormode === "ct" && !xy) {
+    const lampKelvin = mired2Kelvin(ct);
+    const kRGB = kelvin2RGB(lampKelvin);
+    return rgb2Hex(kRGB[0], kRGB[1], kRGB[2]);
+  }
+
+  if (xy && bri) {
+    const lampColorRGB = cie2RGB(xy[0], xy[1], bri);
+    return rgb2Hex(lampColorRGB.r, lampColorRGB.g, lampColorRGB.b);
+  }
+
+  return "#333333";
+}
+
+function calculateSceneLampColor(state: any) {
+  const { on, xy, bri } = state;
+
+  if (!on || bri === 0) {
+    return "#333333";
+  }
+
+  if (xy && bri) {
+    const lampColorRGB = cie2RGB(xy[0], xy[1], bri);
+    return rgb2Hex(lampColorRGB.r, lampColorRGB.g, lampColorRGB.b);
+  }
+
+  return "#333333";
+}
+
+export {
+  cie2RGB,
+  rgb2CIE,
+  mired2Kelvin,
+  kelvin2RGB,
+  rgb2Hex,
+  hex2RGB,
+  calculateLampColor,
+  calculateSceneLampColor,
+};

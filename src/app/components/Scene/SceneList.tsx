@@ -23,7 +23,6 @@ const SceneList = memo(function SceneList({ groupNum }: SceneListProps) {
       if (data[0]?.error) {
         setError(data[0]?.error?.description || "Error from Hue V1 API");
       } else {
-        //setScenes(normalizeScenesData(data, groupNum ?? undefined));
         setSceneData(data);
         setError(null);
       }
@@ -60,8 +59,6 @@ const SceneList = memo(function SceneList({ groupNum }: SceneListProps) {
       {isLoading && <p>loading scenes...</p>}
       {scenes && (
         <div>
-          <h2>Scenes</h2>
-
           {scenes.map((scene) => (
             <Scene key={scene.num} scene={scene} />
           ))}
