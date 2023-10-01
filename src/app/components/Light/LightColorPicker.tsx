@@ -15,8 +15,8 @@ export default function LightColorPicker({
   currentColor,
   enable,
 }: LightColorPickerProps) {
-  // track the color picked by the user
   const [pickColor, setPickColor] = useState<number[]>([]);
+  const [apiTimeout, setApiTimeout] = useState(0);
 
   useEffect(() => {
     if (pickColor && pickColor.length === 3) {
@@ -51,11 +51,17 @@ export default function LightColorPicker({
   }
 
   function changeColor(e: React.ChangeEvent<HTMLInputElement>) {
+    clearTimeout(apiTimeout);
     const hexPicked = e.target.value;
     if (hexPicked) {
       const rgbPicked = hex2RGB(hexPicked);
       const ciePicked = rgb2CIE(rgbPicked[0], rgbPicked[1], rgbPicked[2]);
-      setPickColor(ciePicked);
+      //setPickColor(ciePicked);
+      setApiTimeout(
+        window.setTimeout(() => {
+          setPickColor(ciePicked);
+        }, 100)
+      );
     }
   }
 
