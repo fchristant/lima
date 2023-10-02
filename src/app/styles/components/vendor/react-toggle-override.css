@@ -1,0 +1,26 @@
+@layer components {
+  .react-toggle--checked .react-toggle-track {
+    background-color: var(--color-neutral-060);
+  }
+
+  .react-toggle--checked:hover:not(.react-toggle--disabled)
+    .react-toggle-track {
+    background-color: var(--color-neutral-070);
+  }
+
+  .react-toggle--checked .react-toggle-thumb {
+    border-color: var(--color-neutral-030);
+  }
+
+  .react-toggle--focus .react-toggle-thumb {
+    box-shadow: 0px 0px 2px 3px var(--color-focused);
+  }
+
+  .react-toggle:active:not(.react-toggle--disabled) .react-toggle-thumb {
+    box-shadow: 0px 0px 5px 5px var(--color-focused);
+  }
+
+  .react-toggle--disabled {
+    cursor: initial;
+  }
+}

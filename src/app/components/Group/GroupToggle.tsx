@@ -2,6 +2,7 @@
 
 import Toggle from "react-toggle";
 import "@styles/components/vendor/react-toggle.css";
+import "@styles/components/vendor/react-toggle-override.css";
 import "@styles/components/grouptoggle.css";
 import { useEffect, useState } from "react";
 

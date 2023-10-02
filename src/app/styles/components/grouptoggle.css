@@ -1,9 +1,7 @@
-.group-toggle.react-toggle--checked .react-toggle-track {
-  background-color: var(--color-neutral-060);
-}
-
-.group-toggle {
-  position: absolute;
-  right: 10px;
-  top: 13px;
+@layer components {
+  .group-toggle {
+    position: absolute;
+    right: 10px;
+    top: 13px;
+  }
 }

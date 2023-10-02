@@ -3,6 +3,7 @@
 import "@styles/components/lighttoggle.css";
 import Toggle from "react-toggle";
 import "@styles/components/vendor/react-toggle.css";
+import "@styles/components/vendor/react-toggle-override.css";
 import { useEffect, useState } from "react";
 
 interface LightToggleProps {
@@ -53,6 +54,7 @@ export default function LightToggle({
       className="light-toggle"
       onChange={toggleLight}
       aria-label="toggle light"
+      disabled={!reachable}
     />
   );
 }
