@@ -92,7 +92,16 @@ export default function LightControl({
   return (
     <>
       <div className="light-control-details">
-        {label ? <label className="light-control-label">{label}</label> : ""}
+        {label ? (
+          <label
+            className="light-control-label"
+            htmlFor={light + "-" + attribute}
+          >
+            {label}
+          </label>
+        ) : (
+          ""
+        )}
         <div className="light-control-value">{displayValue}</div>
       </div>
       <input
@@ -103,6 +112,7 @@ export default function LightControl({
         value={pickedValue}
         onChange={handleChange}
         disabled={!enable}
+        id={light + "-" + attribute}
       />
     </>
   );

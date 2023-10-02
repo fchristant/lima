@@ -36,12 +36,12 @@ const Light = memo(function HueLight({ light }: LightProps) {
   const lampColor = calculateLampColor(state);
 
   const cardStyle: MyCustomCSS = {
-    opacity: reachable ? "1" : "0.3",
+    opacity: reachable ? "1" : "0.6",
     borderColor: lampColor,
   };
 
   const spotStyle: MyCustomCSS = {
-    opacity: reachable ? "1" : "0.3",
+    opacity: reachable ? "1" : "0.6",
     color: lampColor,
     "--a": calculateBrightnessDegree(bri, isAvailable) + "deg",
   };

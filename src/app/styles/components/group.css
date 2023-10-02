@@ -41,7 +41,7 @@
   }
 
   & .active {
-    background: var(--color-green-040);
+    background: var(--color-green-050);
     border-color: var(--color-green-030);
     color: var(--color-neutral-000);
     &:hover {

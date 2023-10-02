@@ -72,6 +72,7 @@ export default function LightColorPicker({
       value={currentColor}
       onChange={changeColor}
       disabled={!enable}
+      aria-label="Pick color"
     />
   );
 }
