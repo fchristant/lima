@@ -49,11 +49,13 @@ const Light = memo(function HueLight({ light }: LightProps) {
   return (
     <div className="light" style={cardStyle}>
       <div className="light-name">{name}</div>
-      <div className="light-spot" style={spotStyle}>
-        <div
-          className={isRerender.current ? " light-highlight" : ""}
-          key={Math.random()}
-        ></div>
+      <div className="light-spot-wrapper">
+        <div className="light-spot" style={spotStyle}>
+          <div
+            className={isRerender.current ? " light-highlight" : ""}
+            key={Math.random()}
+          ></div>
+        </div>
       </div>
       <div className="light-toggle-wrapper">
         <LightToggle light={num} on={on} reachable={reachable} />

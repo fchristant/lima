@@ -15,14 +15,19 @@
     padding: var(--spacing-xxs) var(--spacing-xs);
   }
 
+  .light-spot-wrapper {
+    display: block;
+    margin-bottom: var(--spacing-l);
+  }
+
   /* rendition of the light state */
   .light-spot {
+    display: block;
     width: 60px;
     height: 60px;
     position: relative;
     border-radius: 50%;
     margin: 0 auto;
-    margin-bottom: var(--spacing-l);
     background-color: currentColor;
     box-shadow: 0 0 30px 16px currentColor;
     transition:
