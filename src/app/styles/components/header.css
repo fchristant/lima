@@ -5,6 +5,7 @@
     background: var(--color-neutral-090);
     padding: var(--main-padding);
     border-bottom: 1px solid var(--color-neutral-070);
+    border-bottom: 1px solid var(--color-neutral-100);
   }
   @media only screen and (max-width: 767px) {
     .header {

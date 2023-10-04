@@ -18,31 +18,37 @@
 
   @media only screen and (min-width: 960px) {
     .light {
-      width: calc((100% / 4) - (((4 - 1) / 4) * var(--main-padding-mobile)));
+      width: calc((100% / 4) - (((4 - 1) / 4) * var(--main-padding)));
     }
   }
 
   @media only screen and (min-width: 1024px) {
     .light {
-      width: calc((100% / 5) - (((5 - 1) / 5) * var(--main-padding-mobile)));
+      width: calc((100% / 5) - (((5 - 1) / 5) * var(--main-padding)));
     }
   }
 
   @media only screen and (min-width: 1440px) {
     .light {
-      width: calc((100% / 6) - (((6 - 1) / 6) * var(--main-padding-mobile)));
+      width: calc((100% / 6) - (((6 - 1) / 6) * var(--main-padding)));
     }
   }
 
-  @media only screen and (min-width: 1920px) {
+  @media only screen and (min-width: 1720px) {
     .light {
-      width: calc((100% / 7) - (((7 - 1) / 7) * var(--main-padding-mobile)));
+      width: calc((100% / 7) - (((7 - 1) / 7) * var(--main-padding)));
     }
   }
 
-  @media only screen and (min-width: 2200px) {
+  @media only screen and (min-width: 2100px) {
     .light {
-      width: calc((100% / 8) - (((8 - 1) / 8) * var(--main-padding-mobile)));
+      width: calc((100% / 8) - (((8 - 1) / 8) * var(--main-padding)));
+    }
+  }
+
+  @media only screen and (min-width: 2100px) {
+    .light {
+      max-width: 25rem;
     }
   }
 
@@ -50,6 +56,9 @@
     text-align: center;
     margin-bottom: var(--spacing-m);
     padding: var(--spacing-xxs) var(--spacing-xs);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .light-spot-wrapper {
@@ -95,7 +104,8 @@
 
   .light-bri-wrapper {
     padding: var(--spacing-xxs) 0;
-    border-bottom: 1px solid var(--color-neutral-070);
+    border-top: 1px solid var(--color-neutral-070);
+    border-bottom: 1px solid var(--color-neutral-100);
   }
 
   .light-edit {
@@ -112,21 +122,23 @@
   .light-colorpicker-wrapper {
     padding: var(--spacing-xs) 0;
     text-align: center;
-    border-bottom: 1px solid var(--color-neutral-070);
+    border-bottom: 1px solid var(--color-neutral-100);
   }
 
   .light-temperature-wrapper {
     padding: var(--spacing-xxs) 0;
-    border-bottom: 1px solid var(--color-neutral-070);
+    border-top: 1px solid var(--color-neutral-070);
   }
 
   .light-saturation-wrapper {
     padding: var(--spacing-xxs) 0;
-    border-bottom: 1px solid var(--color-neutral-070);
+    border-bottom: 1px solid var(--color-neutral-100);
+    border-top: 1px solid var(--color-neutral-070);
   }
 
   .light-hue-wrapper {
     padding-top: var(--spacing-xxs);
+    border-top: 1px solid var(--color-neutral-070);
   }
 
   @keyframes halo {
