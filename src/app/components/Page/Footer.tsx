@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="footer">
       <p>
-        An project by{" "}
+        A project by{" "}
         <a href="https://www.ferdychristant.com" target="new">
           Ferdy Christant
         </a>

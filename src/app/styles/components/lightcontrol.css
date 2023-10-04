@@ -1,6 +1,7 @@
 @layer components {
   .light-control {
     display: block;
+    width: 100%;
   }
   .light-control-details {
     display: flex;

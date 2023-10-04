@@ -29,18 +29,11 @@ export default function LightControl({
   label,
 }: LightControlProps) {
   const [pickedValue, setPickedValue] = useState(currentValue);
-  const [displayValue, setDisplayValue] = useState(
-    calculateDisplayValue(pickedValue)
-  );
+  const displayValue = calculateDisplayValue(pickedValue);
 
   useEffect(() => {
     setPickedValue(currentValue);
   }, [currentValue]);
-
-  useEffect(() => {
-    setDisplayValue(calculateDisplayValue(pickedValue));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pickedValue]);
 
   async function updateLight(value: number) {
     const bodyData = { [attribute]: value };

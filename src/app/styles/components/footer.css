@@ -17,4 +17,13 @@
       padding: var(--main-padding-mobile);
     }
   }
+
+  @supports (padding: max(0px)) {
+    .footer {
+      padding-bottom: max(
+        var(--main-padding-mobile),
+        env(safe-area-inset-bottom)
+      );
+    }
+  }
 }
