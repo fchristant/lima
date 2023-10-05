@@ -30,7 +30,7 @@ export default function LightList({ group, groupNum }: LightListProps) {
         setError(null);
       }
     } catch (err: any) {
-      setError(err.message || "Error loading light data from Hue Bridge.");
+      setError(err.message || "Error loading data from Hue Bridge.");
     } finally {
       setIsLoading(false);
     }
@@ -68,16 +68,16 @@ export default function LightList({ group, groupNum }: LightListProps) {
   }, pollingInterval);
 
   return (
-    <div className="light-list">
+    <>
       {error && <p>{error}</p>}
       {isLoading && <p>loading lights...</p>}
       {lights && (
-        <>
+        <div className="light-list">
           {lights.map((light) => (
             <Light light={light} key={light.num} />
           ))}
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 }
