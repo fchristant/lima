@@ -30,7 +30,7 @@ export default function LightList({ group, groupNum }: LightListProps) {
         setError(null);
       }
     } catch (err: any) {
-      setError(err.message || "Error loading data from Hue Bridge.");
+      setError(err.message || "Error loading light data from Hue Bridge.");
     } finally {
       setIsLoading(false);
     }
