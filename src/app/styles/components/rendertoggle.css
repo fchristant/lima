@@ -1,7 +1,7 @@
 @layer components {
   .render-toggle {
     margin-left: auto;
-    background: var(--color-neutral-070);
+    background: var(--color-neutral-080);
     border-radius: 10px;
   }
   .render-toggle-button {

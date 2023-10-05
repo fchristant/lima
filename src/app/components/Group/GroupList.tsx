@@ -76,7 +76,7 @@ export default function Grouplist() {
     <>
       <div className="group-list">
         {error && <p>{error}</p>}
-        {isLoading && <p>loading groups...</p>}
+        {isLoading && <p>Loading groups...</p>}
         <Group
           key="all"
           onSelectGroup={setActiveGroup}
