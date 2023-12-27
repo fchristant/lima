@@ -1,6 +1,6 @@
 {
-  "name": "phsb",
-  "version": "0.1.0",
+  "name": "lima",
+  "version": "0.9",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,9 +13,9 @@
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
     "eslint": "8.46.0",
-    "eslint-config-next": "^13.5.2",
+    "eslint-config-next": "^14.0.4",
     "lodash.throttle": "^4.1.1",
-    "next": "^13.5.2",
+    "next": "^14.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-toggle": "^4.1.3",
