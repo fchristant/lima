@@ -24,11 +24,21 @@ type HueGroup = {
   };
 };
 
+type HueSceneLightState = {
+  on: boolean;
+  bri?: number;
+  xy?: [number, number];
+  ct?: number;
+  hue?: number;
+  sat?: number;
+};
+
 type HueScene = {
   num: string;
   name: string;
   type: string;
   group: string;
+  lightstates?: Record<string, HueSceneLightState>;
 };
 
-export type { HueLight, HueGroup, HueScene };
+export type { HueLight, HueGroup, HueScene, HueSceneLightState };

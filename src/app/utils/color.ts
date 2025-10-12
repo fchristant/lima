@@ -144,6 +144,46 @@ function hex2RGB(hex: string) {
   return [r, g, b];
 }
 
+function hsb2RGB(hue: number, sat: number, bri: number) {
+  const h = ((hue % 65536) / 65535) * 360;
+  const s = Math.max(0, Math.min(sat / 254, 1));
+  const v = Math.max(0, Math.min(bri / 254, 1));
+
+  const c = v * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = v - c;
+
+  let r1 = 0;
+  let g1 = 0;
+  let b1 = 0;
+
+  if (h >= 0 && h < 60) {
+    r1 = c;
+    g1 = x;
+  } else if (h >= 60 && h < 120) {
+    r1 = x;
+    g1 = c;
+  } else if (h >= 120 && h < 180) {
+    g1 = c;
+    b1 = x;
+  } else if (h >= 180 && h < 240) {
+    g1 = x;
+    b1 = c;
+  } else if (h >= 240 && h < 300) {
+    r1 = x;
+    b1 = c;
+  } else {
+    r1 = c;
+    b1 = x;
+  }
+
+  const r = Math.round((r1 + m) * 255);
+  const g = Math.round((g1 + m) * 255);
+  const b = Math.round((b1 + m) * 255);
+
+  return [r, g, b];
+}
+
 function calculateLampColor(state: any) {
   const { on, reachable, xy, ct, colormode, bri } = state;
 
@@ -166,15 +206,38 @@ function calculateLampColor(state: any) {
 }
 
 function calculateSceneLampColor(state: any) {
-  const { on, xy, bri } = state;
-
-  if (!on || bri === 0) {
+  if (!state) {
     return "#333333";
   }
 
-  if (xy && bri) {
-    const lampColorRGB = cie2RGB(xy[0], xy[1], bri);
+  const { on, xy, bri, ct, hue, sat } = state;
+  const isOn = on === undefined ? true : on;
+  const brightness = typeof bri === "number" ? bri : 254;
+
+  if (!isOn || brightness === 0) {
+    return "#333333";
+  }
+
+  if (xy && xy.length >= 2) {
+    const lampColorRGB = cie2RGB(xy[0], xy[1], brightness);
     return rgb2Hex(lampColorRGB.r, lampColorRGB.g, lampColorRGB.b);
+  }
+
+  if (typeof ct === "number") {
+    const lampKelvin = mired2Kelvin(ct);
+    const kRGB = kelvin2RGB(lampKelvin).map((channel) =>
+      Math.round((channel * brightness) / 254)
+    ) as [number, number, number];
+    return rgb2Hex(kRGB[0], kRGB[1], kRGB[2]);
+  }
+
+  if (typeof hue === "number" && typeof sat === "number") {
+    const hsRGB = hsb2RGB(hue, sat, brightness);
+    return rgb2Hex(hsRGB[0], hsRGB[1], hsRGB[2]);
+  }
+
+  if (typeof bri === "number") {
+    return rgb2Hex(brightness, brightness, brightness);
   }
 
   return "#333333";
@@ -187,6 +250,38 @@ function calculateBrightnessDegree(bri: number, isAvailable: boolean) {
   return Math.max(10, Math.round((360 / 255) * bri));
 }
 
+function polarToCartesian(
+  centerX: number,
+  centerY: number,
+  radius: number,
+  angleInDegrees: number
+) {
+  const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180;
+  return {
+    x: centerX + radius * Math.cos(angleInRadians),
+    y: centerY + radius * Math.sin(angleInRadians),
+  };
+}
+
+function describeArc(
+  centerX: number,
+  centerY: number,
+  radius: number,
+  startAngle: number,
+  endAngle: number
+) {
+  const start = polarToCartesian(centerX, centerY, radius, startAngle);
+  const end = polarToCartesian(centerX, centerY, radius, endAngle);
+  const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+
+  return [
+    `M ${centerX} ${centerY}`,
+    `L ${start.x} ${start.y}`,
+    `A ${radius} ${radius} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`,
+    "Z",
+  ].join(" ");
+}
+
 export {
   cie2RGB,
   rgb2CIE,
@@ -197,4 +292,6 @@ export {
   calculateLampColor,
   calculateSceneLampColor,
   calculateBrightnessDegree,
+  polarToCartesian,
+  describeArc,
 };

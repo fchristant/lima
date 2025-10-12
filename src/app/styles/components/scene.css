@@ -1,8 +1,11 @@
 @layer components {
   .scene {
-    background: var(--color-neutral-090);
+    --scene-swatch-gap-color: var(--color-neutral-090);
+    background: var(--scene-swatch-gap-color);
     color: var(--color-neutral-030);
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-s);
     border: 2px solid var(--color-neutral-060);
     padding: var(--spacing-xxs) var(--spacing-s);
     margin: 0 var(--spacing-xs) var(--spacing-xs) 0;
@@ -10,14 +13,34 @@
     cursor: pointer;
     outline: none;
     &:hover {
-      background: var(--color-neutral-080);
+      --scene-swatch-gap-color: var(--color-neutral-080);
+      background: var(--scene-swatch-gap-color);
       color: var(--color-neutral-020);
     }
 
     &:focus {
-      background: var(--color-green-040);
+      --scene-swatch-gap-color: var(--color-green-040);
+      background: var(--scene-swatch-gap-color);
       border-color: var(--color-green-030);
       color: var(--color-neutral-000);
     }
+  }
+
+  .scene__swatch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 999px;
+    background-color: transparent;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .scene__swatch svg {
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 }
