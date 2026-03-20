@@ -22,10 +22,24 @@ const Light = memo(function HueLight({ light }: LightProps) {
    this is used to not render a CSS animation on the initial render,
    whilst running it on any subsequent render
    */
-  const isRerender = useRef(false);
+  const hasMounted = useRef(false);
+  const highlightRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
-    isRerender.current = true;
-  }, []);
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      return;
+    }
+
+    const highlightElement = highlightRef.current;
+    if (!highlightElement) {
+      return;
+    }
+
+    highlightElement.classList.remove("light-highlight");
+    // Force reflow so adding the class restarts the animation.
+    void highlightElement.offsetWidth;
+    highlightElement.classList.add("light-highlight");
+  });
 
   const { renderFull } = useRender();
 
@@ -51,10 +65,7 @@ const Light = memo(function HueLight({ light }: LightProps) {
       <div className="light-name">{name}</div>
       <div className="light-spot-wrapper">
         <div className="light-spot" style={spotStyle}>
-          <div
-            className={isRerender.current ? " light-highlight" : ""}
-            key={Math.random()}
-          ></div>
+          <div ref={highlightRef}></div>
         </div>
       </div>
       <div className="light-toggle-wrapper">
